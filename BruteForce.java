@@ -28,7 +28,7 @@ public class BruteForce {
 		new BruteForce();
 	}
 	
-	//Writing recursion all on my own...
+	//Recursively generate board possibilites
 	public void recurse (boolean[][] currBoard, int currRow, int currCol) {
 		if (currCol < c-1) {
 			boolean[][] newBoard1 = new boolean[r][c];
@@ -42,13 +42,14 @@ public class BruteForce {
 					}
 				}
 			}			
+			System.out.println("\nunfilled");
 			System.out.println(currRow + "," + currCol);
-			System.out.println("unfilled \n");
 			printBoard(newBoard1);
 			recurse(newBoard1, currRow, currCol+1); //currCell left white
+			
 			currBoard[currRow][currCol] = BLACK; //currCell made black
+			System.out.println("\nfilled");
 			System.out.println(currRow + "," + currCol);
-			System.out.println("filled \n");
 			boolean[][] newBoard2 = new boolean[r][c];
 			for (int i = 0; i < currBoard.length; i++) {
 				for (int j = 0; j < currBoard[0].length; j++) {
@@ -66,8 +67,8 @@ public class BruteForce {
 		else if (currRow == r-1) { //and of course currCol == c-1
 			//end of board
 			
+			System.out.println("\nend of board");
 			System.out.println(currRow + "," + currCol);
-			System.out.println("end of board");
 			boolean[][] newAddBoard1 = new boolean[r][c];
 			for (int i = 0; i < currBoard.length; i++) {
 				for (int j = 0; j < currBoard[0].length; j++) {
@@ -82,9 +83,10 @@ public class BruteForce {
 			boards.add(newAddBoard1);
 			printBoard(newAddBoard1);
 			System.out.println("Boards Size: " + boards.size());
+			
 			currBoard[currRow][currCol] = BLACK;
+			System.out.println("\nend of board");
 			System.out.println(currRow + "," + currCol);
-			System.out.println("end of board");	
 			boolean[][] newAddBoard2 = new boolean[r][c];
 			for (int i = 0; i < currBoard.length; i++) {
 				for (int j = 0; j < currBoard[0].length; j++) {
@@ -99,7 +101,6 @@ public class BruteForce {
 			printBoard(newAddBoard2);
 			boards.add(newAddBoard2);
 			System.out.println("Board Size: " + boards.size());
-			System.out.println("end of board");
 			//return;
 			
 			
@@ -121,10 +122,11 @@ public class BruteForce {
 					}
 				}
 			}
+			System.out.println("\nnext line (unfilled)");
 			System.out.println(currRow + "," + currCol);
-			System.out.println("next line (unfilled)");
 			printBoard(newBoard3);
 			recurse(newBoard3, currRow+1, 0);
+			
 			currBoard[currRow][currCol] = BLACK;
 			boolean[][] newBoard4 = new boolean[r][c];
 			for (int i = 0; i < currBoard.length; i++) {
@@ -137,8 +139,8 @@ public class BruteForce {
 					}
 				}
 			}
+			System.out.println("\nnext line (filled)");
 			System.out.println(currRow + "," + currCol);
-			System.out.println("next line (filled)");
 			printBoard(newBoard4);
 			recurse(newBoard4, currRow+1, 0);
 		}
