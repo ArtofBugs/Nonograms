@@ -97,8 +97,6 @@ public class BruteForce {
 		}
 	}
 	
-	//copyBoard method here
-	
 	public boolean checker(boolean[][] grid, boolean[][] game) {
 		return false;
 	}
