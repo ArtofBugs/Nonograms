@@ -1,3 +1,8 @@
+/*
+Uses brute force to generate all possible solutions to a given nonogram
+Author: ArtofBugs | Date: Summer 2021
+*/
+
 import java.util.ArrayList;
 
 public class BruteForce {
@@ -26,19 +31,37 @@ public class BruteForce {
 	//Writing recursion all on my own...
 	public void recurse (boolean[][] currBoard, int currRow, int currCol) {
 		if (currCol < c-1) {
-			//boolean[][] newBoard1 = new boolean[r][c];
-			//newBoard1 = currBoard;
+			boolean[][] newBoard1 = new boolean[r][c];
+			for (int i = 0; i < currBoard.length; i++) {
+				for (int j = 0; j < currBoard[0].length; j++) {
+					if (currBoard[i][j] == true) {
+						newBoard1[i][j] = true;
+					}
+					else {
+						newBoard1[i][j] = false;
+					}
+				}
+			}			
 			System.out.println(currRow + "," + currCol);
 			System.out.println("unfilled \n");
-			printBoard(currBoard);
-			recurse(currBoard, currRow, currCol+1); //currCell left white
+			printBoard(newBoard1);
+			recurse(newBoard1, currRow, currCol+1); //currCell left white
 			currBoard[currRow][currCol] = BLACK; //currCell made black
 			System.out.println(currRow + "," + currCol);
 			System.out.println("filled \n");
-			printBoard(currBoard);
-			//boolean[][] newBoard2 = new boolean[r][c];
-			//newBoard2 = currBoard;
-			recurse(currBoard, currRow, currCol+1);	
+			boolean[][] newBoard2 = new boolean[r][c];
+			for (int i = 0; i < currBoard.length; i++) {
+				for (int j = 0; j < currBoard[0].length; j++) {
+					if (currBoard[i][j] == true) {
+						newBoard2[i][j] = true;
+					}
+					else {
+						newBoard2[i][j] = false;
+					}
+				}
+			}
+			printBoard(newBoard2);
+			recurse(newBoard2, currRow, currCol+1);	
 		}
 		else if (currRow == r-1) { //and of course currCol == c-1
 			//end of board
@@ -46,15 +69,33 @@ public class BruteForce {
 			System.out.println(currRow + "," + currCol);
 			System.out.println("end of board");
 			boolean[][] newAddBoard1 = new boolean[r][c];
-			copyBoard(currBoard, newAddBoard1); //TODO write this method
+			for (int i = 0; i < currBoard.length; i++) {
+				for (int j = 0; j < currBoard[0].length; j++) {
+					if (currBoard[i][j] == true) {
+						newAddBoard1[i][j] = true;
+					}
+					else {
+						newAddBoard1[i][j] = false;
+					}
+				}
+			}
 			boards.add(newAddBoard1);
 			printBoard(newAddBoard1);
-			System.out.println("Board Size: " + boards.size());
+			System.out.println("Boards Size: " + boards.size());
 			currBoard[currRow][currCol] = BLACK;
 			System.out.println(currRow + "," + currCol);
 			System.out.println("end of board");	
 			boolean[][] newAddBoard2 = new boolean[r][c];
-			copyBoard(currBoard, newAddBoard2);
+			for (int i = 0; i < currBoard.length; i++) {
+				for (int j = 0; j < currBoard[0].length; j++) {
+					if (currBoard[i][j] == true) {
+						newAddBoard1[i][j] = true;
+					}
+					else {
+						newAddBoard1[i][j] = false;
+					}
+				}
+			}
 			printBoard(newAddBoard2);
 			boards.add(newAddBoard2);
 			System.out.println("Board Size: " + boards.size());
@@ -69,19 +110,37 @@ public class BruteForce {
 		}
 		else { //currCol == c-1 but currRow < r-1
 			//move to next row, go to first col
-			//boolean[][] newBoard3 = new boolean[r][c];
-			//newBoard3 = currBoard;
+			boolean[][] newBoard3 = new boolean[r][c];
+			for (int i = 0; i < currBoard.length; i++) {
+				for (int j = 0; j < currBoard[0].length; j++) {
+					if (currBoard[i][j] == true) {
+						newBoard3[i][j] = true;
+					}
+					else {
+						newBoard3[i][j] = false;
+					}
+				}
+			}
 			System.out.println(currRow + "," + currCol);
 			System.out.println("next line (unfilled)");
-			printBoard(currBoard);
-			recurse(currBoard, currRow+1, 0);
+			printBoard(newBoard3);
+			recurse(newBoard3, currRow+1, 0);
 			currBoard[currRow][currCol] = BLACK;
-			//boolean[][] newBoard4 = new boolean[r][c];
-			//newBoard4 = currBoard;
+			boolean[][] newBoard4 = new boolean[r][c];
+			for (int i = 0; i < currBoard.length; i++) {
+				for (int j = 0; j < currBoard[0].length; j++) {
+					if (currBoard[i][j] == true) {
+						newBoard4[i][j] = true;
+					}
+					else {
+						newBoard4[i][j] = false;
+					}
+				}
+			}
 			System.out.println(currRow + "," + currCol);
 			System.out.println("next line (filled)");
-			printBoard(currBoard);
-			recurse(currBoard, currRow+1, 0);
+			printBoard(newBoard4);
+			recurse(newBoard4, currRow+1, 0);
 		}
 
 	}
