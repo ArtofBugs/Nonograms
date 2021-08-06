@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Interpreter {
 	
 
-	public static int[] Interpreter() {
+	public static info[] Interpreter() {
 
 		Scanner sysScanner = new Scanner(System.in);
 		System.out.println("Enter file path");
@@ -20,10 +20,9 @@ public class Interpreter {
 			System.exit(1);
 		}
 			
-		//split
+		split
 
-		int[] info = {3,2};
-		return info;
+		return new info[] {3,2};
 
 
 	}
