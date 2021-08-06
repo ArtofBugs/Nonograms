@@ -44,9 +44,11 @@ public class Interpreter {
 								heightStr += currLine.charAt(i);
 							}
 						}
-						height = Integer.parseInt(heightStr);
-						System.out.println("height: " + height);
-						return height;
+						if (!heightStr.isEmpty()) {
+							height = Integer.parseInt(heightStr);
+							System.out.println("height: " + height);
+							return height;
+						}
 					}
 					//lines++;
 					//System.out.println(lines);
@@ -89,9 +91,11 @@ public class Interpreter {
 								widthStr += currLine.charAt(i);
 							}
 						}
-						width = Integer.parseInt(widthStr);
-						System.out.println("width: " + width);
-						return width;
+						if (!widthStr.isEmpty()) {
+							width = Integer.parseInt(widthStr);
+							System.out.println("width: " + width);
+							return width;
+						}
 					}
 					//lines++;
 					//System.out.println(lines);
