@@ -3,11 +3,11 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
 
-public class Interpreter {
+public class NonParser {
 	
 	static Scanner sysScanner;
 	
-	public static int[] Interpreter() {
+	public static int[] NonParser() {
 
 		sysScanner = new Scanner(System.in);
 		System.out.println("Enter file path");
@@ -22,7 +22,7 @@ public class Interpreter {
 	}
 	
 	public static void main (String [] args) {
-		new Interpreter();
+		new NonParser();
 	}
 	
 	public static int findHeight(String path) {
@@ -46,7 +46,7 @@ public class Interpreter {
 						}
 						if (!heightStr.isEmpty()) {
 							height = Integer.parseInt(heightStr);
-							System.out.println("height: " + height);
+							//System.out.println("height: " + height);
 							return height;
 						}
 					}
@@ -65,7 +65,7 @@ public class Interpreter {
 			}		
 		}
 		catch (IOException ex) {
-			ex.printStackTrace();
+			//ex.printStackTrace();
 			System.out.println("File not found.");
 			System.exit(1);
 			return -1;
@@ -93,7 +93,7 @@ public class Interpreter {
 						}
 						if (!widthStr.isEmpty()) {
 							width = Integer.parseInt(widthStr);
-							System.out.println("width: " + width);
+							//System.out.println("width: " + width);
 							return width;
 						}
 					}
@@ -112,7 +112,7 @@ public class Interpreter {
 			}		
 		}
 		catch (IOException ex) {
-			ex.printStackTrace();
+			//ex.printStackTrace();
 			System.out.println("File not found.");
 			System.exit(1);
 			return -1;
