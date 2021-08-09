@@ -7,14 +7,14 @@ public class NonParser {
 	
 	static Scanner sysScanner;
 	
-	public static int[] NonParser() {
+	public static int[] NonParser(File file) {
 
 		sysScanner = new Scanner(System.in);
-		System.out.println("Enter file path");
-		String path = sysScanner.nextLine();
+		//System.out.println("Enter file path");
+		//String path = sysScanner.nextLine();
 		int[] info = {0, 0};
-		info[0] = findHeight(path);
-		info[1] = findWidth(path);
+		info[0] = findHeight(file);
+		info[1] = findWidth(file);
 		sysScanner.close();
 		return info;
 
@@ -25,18 +25,19 @@ public class NonParser {
 		new NonParser();
 	}
 	
-	public static int findHeight(String path) {
+	public static int findHeight(File file) {
 		
 		//int lines = 0;
 		int height = 0;
 		String currLine = "";
 		
 		try {
-			Scanner fileScanner = new Scanner(new File (path));
+			Scanner fileScanner = new Scanner(file);
 			while (true) {
 				try {
+				
 					currLine = fileScanner.nextLine();
-					//System.out.println(currLine);
+					System.out.println(currLine);
 					if (currLine.contains("height")) {
 						String heightStr = "";
 						for (int i = 0; i < currLine.length(); i++) {
@@ -57,7 +58,7 @@ public class NonParser {
 				}
 				catch (NoSuchElementException nsee) { //no more lines; height still not found
 					System.out.println("No height found");
-					fileScanner.close();
+					//fileScanner.close();
 					sysScanner.close();
 					System.exit(1);
 					return -1;					
@@ -72,18 +73,18 @@ public class NonParser {
 		}
 	}
 	
-	public static int findWidth(String path) {
+	public static int findWidth(File file) {
 		
 		//int lines = 0;
 		int width = 0;
 		String currLine = "";
 		
 		try {
-			Scanner fileScanner = new Scanner(new File (path));
+			Scanner fileScanner = new Scanner(file);
 			while (true) {
 				try {
 					currLine = fileScanner.nextLine();
-					//System.out.println(currLine);
+					System.out.println(currLine);
 					if (currLine.contains("width")) {
 						String widthStr = "";
 						for (int i = 0; i < currLine.length(); i++) {
@@ -117,5 +118,10 @@ public class NonParser {
 			System.exit(1);
 			return -1;
 		}
+	}
+	
+	public static int[] findRowClues () {
+		int[] rowClues = {0};
+		return rowClues;
 	}
 }

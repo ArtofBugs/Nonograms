@@ -4,10 +4,11 @@ Author: ArtofBugs | Date: Summer 2021
 */
 
 import java.util.ArrayList;
+import java.io.File;
 
 public class BruteForce {
 	
-	final int[] info = Interpreter.Interpreter();
+	final int[] info = NonParser.NonParser(new File("test.non"));
 	final int r = info[0];
 	final int c = info[1];
 	final boolean WHITE = false;
@@ -17,8 +18,9 @@ public class BruteForce {
 	public BruteForce() {
 		//generate all possible r by c boards
 		System.out.println("r = " + r);
+		System.out.println("c = " + c);
 		recurse(new boolean[r][c], 0, 0);
-		System.out.println(boards.size());
+		System.out.println("Boards total size: " + boards.size());
 		for (int n = 0; n < boards.size(); n++) {
 			printBoard(boards.get(n));
 			System.out.println("n = " + n);
@@ -42,14 +44,14 @@ public class BruteForce {
 					}
 				}
 			}			
-			System.out.println("\nunfilled");
-			System.out.println(currRow + "," + currCol);
-			printBoard(newBoard1);
+			//System.out.println("\nunfilled");
+			//System.out.println(currRow + "," + currCol);
+			//printBoard(newBoard1);
 			recurse(newBoard1, currRow, currCol+1); //currCell left white
 			
 			
-			System.out.println("\nfilled");
-			System.out.println(currRow + "," + currCol);
+			//System.out.println("\nfilled");
+			//System.out.println(currRow + "," + currCol);
 			boolean[][] newBoard2 = new boolean[r][c];
 			for (int i = 0; i < currBoard.length; i++) {
 				for (int j = 0; j < currBoard[0].length; j++) {
@@ -62,14 +64,14 @@ public class BruteForce {
 				}
 			}
 			newBoard2[currRow][currCol] = BLACK; //currCell made black
-			printBoard(newBoard2);
+			//printBoard(newBoard2);
 			recurse(newBoard2, currRow, currCol+1);	
 		}
 		else if (currRow == r-1) { //and of course currCol == c-1
 			//end of board
 			
-			System.out.println("\nend of board");
-			System.out.println(currRow + "," + currCol);
+			//System.out.println("\nend of board");
+			//System.out.println(currRow + "," + currCol);
 			boolean[][] newAddBoard1 = new boolean[r][c];
 			for (int i = 0; i < currBoard.length; i++) {
 				for (int j = 0; j < currBoard[0].length; j++) {
@@ -82,11 +84,11 @@ public class BruteForce {
 				}
 			}
 			boards.add(newAddBoard1);
-			printBoard(newAddBoard1);
-			System.out.println("Boards Size: " + boards.size());
+			//printBoard(newAddBoard1);
+			//System.out.println("Boards Size: " + boards.size());
 			
-			System.out.println("\nend of board");
-			System.out.println(currRow + "," + currCol);
+			//System.out.println("\nend of board");
+			//System.out.println(currRow + "," + currCol);
 			boolean[][] newAddBoard2 = new boolean[r][c];
 			for (int i = 0; i < currBoard.length; i++) {
 				for (int j = 0; j < currBoard[0].length; j++) {
@@ -99,9 +101,9 @@ public class BruteForce {
 				}
 			}
 			newAddBoard2[currRow][currCol] = BLACK;
-			printBoard(newAddBoard2);
+			//printBoard(newAddBoard2);
 			boards.add(newAddBoard2);
-			System.out.println("Board Size: " + boards.size());
+			//System.out.println("Board Size: " + boards.size());
 			//return;
 			
 			
@@ -123,9 +125,9 @@ public class BruteForce {
 					}
 				}
 			}
-			System.out.println("\nnext line (unfilled)");
-			System.out.println(currRow + "," + currCol);
-			printBoard(newBoard3);
+			//System.out.println("\nnext line (unfilled)");
+			//System.out.println(currRow + "," + currCol);
+			//printBoard(newBoard3);
 			recurse(newBoard3, currRow+1, 0);
 			
 			boolean[][] newBoard4 = new boolean[r][c];
@@ -140,9 +142,9 @@ public class BruteForce {
 				}
 			}
 			newBoard4[currRow][currCol] = BLACK;
-			System.out.println("\nnext line (filled)");
-			System.out.println(currRow + "," + currCol);
-			printBoard(newBoard4);
+			//System.out.println("\nnext line (filled)");
+			//System.out.println(currRow + "," + currCol);
+			//printBoard(newBoard4);
 			recurse(newBoard4, currRow+1, 0);
 		}
 
