@@ -2,19 +2,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
+import java.util.ArrayList;
 
 public class NonParser {
 	
 	static Scanner sysScanner;
 	
-	public static int[] NonParser(File file) {
+	public static Board NonParser(File file) {
 
 		sysScanner = new Scanner(System.in);
 		//System.out.println("Enter file path");
 		//String path = sysScanner.nextLine();
-		int[] info = {0, 0};
-		info[0] = findHeight(file);
-		info[1] = findWidth(file);
+		Board info = new Board (findHeight(file), findWidth(file));
+		info.checkRowsSolution(findRowClues(file));
+		//int[] info = {0, 0};
+		//info[0] = findHeight(file);
+		//info[1] = findWidth(file);
 		sysScanner.close();
 		return info;
 
@@ -120,8 +123,58 @@ public class NonParser {
 		}
 	}
 	
-	public static int[] findRowClues () {
-		int[] rowClues = {0};
+	//Layout: clues is an ArrayList of ArrayLists of Integers. The inner ArrayLists are lists of clues in each row;
+	//the outer ArrayList represents a list of rows.
+	public static ArrayList<int[]> findRowClues (File file) {
+		ArrayList<int[]> rowClues = new ArrayList<int[]>();
+		int width = 0;
+		String currLine = "";
+		try {
+			Scanner fileScanner = new Scanner(file);
+			while (true) {
+				try {
+					currLine = fileScanner.nextLine();
+					System.out.println(currLine);
+					//look through next lines; add their info if they're clues and stop when the row's not about clues
+					if (currLine.contains("rows")) {
+						int lineNum = 0;
+						while (true) {
+							try {
+								lineNum++;
+								currLine = fileScanner.nextLine();
+								System.out.println("Clues: " + lineNum + ":" + currLine);
+								if (currLine.isEmpty()) {break;}
+								String[] clueStrings = currLine.split(",");
+								int[] clueInts = new int[clueStrings.length];
+								if (clueStrings.length == 0) {break;}
+								for (int i = 0; i < clueStrings.length; i++) {
+								   clueInts[i] = Integer.parseInt(clueStrings[i]);
+								}
+								rowClues.add(clueInts);
+							}
+							catch (NoSuchElementException nsee) { //reached end of clues and there's nothing left
+								break;
+							}
+						}
+						break;
+					}
+				}
+				catch (NoSuchElementException nsee) { //no more lines; rows still not found
+					if (rowClues.size() == 0) {
+						System.out.println("No rows found");
+						fileScanner.close();
+						sysScanner.close();
+						System.exit(1);
+					}				
+				}
+			}		
+		}
+		catch (IOException ex) {
+			//ex.printStackTrace();
+			System.out.println("File not found.");
+			System.exit(1);
+		}
+		System.out.println("rowClues returns here");
 		return rowClues;
 	}
 }

@@ -8,9 +8,9 @@ import java.io.File;
 
 public class BruteForce {
 	
-	final int[] info = NonParser.NonParser(new File("test.non"));
-	final int r = info[0];
-	final int c = info[1];
+	final Board info = NonParser.NonParser(new File("test.non"));
+	final int r = info.getRows();
+	final int c = info.getCols();
 	final boolean WHITE = false;
 	final boolean BLACK = true;
 	ArrayList <boolean [][]> boards = new ArrayList <boolean [][]>();
@@ -161,7 +161,9 @@ public class BruteForce {
 		}
 	}
 	
+	/*
 	public boolean checker(boolean[][] grid, boolean[][] game) {
 		return false;
 	}
+	*/
 }

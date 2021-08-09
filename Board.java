@@ -1,3 +1,8 @@
+/*
+*/
+
+import java.util.ArrayList;
+
 public class Board {
     int rows, cols;
     boolean squares[][];
@@ -22,6 +27,19 @@ public class Board {
 
     public void set(int row, int col, boolean value) {
         this.squares[row][col] = value;
+    }
+    
+    public int getRows() {
+    	return rows;
+    }
+    
+    public int getCols() {
+    	return cols;
+    }
+    
+    //Checks if this board fits a set of row clues
+    public boolean checkRowsSolution(ArrayList<int[]> rowClues) {
+    	return false;
     }
 }
 
