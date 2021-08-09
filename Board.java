@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class Board {
     int rows, cols;
     boolean squares[][];
+    ArrayList<int[]> rowClues;
+    ArrayList<int[]> colClues;
 
     public Board(int rows, int cols) {
         this.rows = rows;
@@ -37,9 +39,16 @@ public class Board {
     	return cols;
     }
     
-    //Checks if this board fits a set of row clues
-    public boolean checkRowsSolution(ArrayList<int[]> rowClues) {
-    	return false;
+    //Sets board's row clues based on what's in the board
+    public void updateRowClues() {
+    	
+    }
+    
+    //Checks if this board's describing clues are the same as a set of given row clues
+    //(If they are the same, this board is a solution to the given game.)
+    public boolean checkRowsSolution(ArrayList<int[]> newRowClues) {
+    	boolean match = true;
+    	return match;
     }
 }
 
