@@ -47,37 +47,32 @@ public class Board {
     	return cols;
     }
     
-    //Sets board's describing row clues based on what's in the board
+    // Sets board's describing row clues based on what's in the board.
     public void updateRowClues() {
     	
-    	for (int r = 0; r < rows; r++) {//rows in board, which correspond to int arrays in rowClues
-		ArrayList <Integer> currRowList = new ArrayList<Integer>(); //temporary ArrayList to store
-		//filled square counts since int[] lengths can't be changed once they're created
-		int currCount = 0; //count of how many filled squares in a row we've seen
-		for (int c = 0; c < cols; c++) {//cols in board, which could correspond to members of the int arrays
+    	for (int r = 0; r < rows; r++) {
+		ArrayList <Integer> currRowList = new ArrayList<Integer>();
+                // Count of how many filled squares in a row we've seen.
+		int currCount = 0; 
+		for (int c = 0; c < cols; c++) {
 			if (this.get(r, c) == BLACK) {
-				System.err.println(r + "," + c + "|" + "BLACK");
 				currCount++;
-				System.err.println("currCount:" + currCount);
     	     		}
     	    		else {
-    	      			if (currCount != 0) {currRowList.add(currCount);}
-    	      			//if there are bugs, this may be the source if it passed by reference... 
-    	      			//though there should be some boxing stuff that prevents that...
-    	      			//as you can tell, passing by reference vs passing by value is not my strong suit
-    	      			//(hopefully I'll improve on it as I get more practice and experience :) )
+    	      			if (currCount != 0) {
+                                        currRowList.add(currCount);
+                                }
     	      			currCount = 0;
     	     		}
     	   	}
-    	   	//end of row reached
+                if (currCount != 0) {
+                        currRowList.add(currCount);
+                }
     	   	int[] currRowArray = new int[currRowList.size()];
-    	   	//(there is potential for bugs here as well if currRowArray is deleted after the for loop,
-    	   	//or there aren't new arrays being created)
-    		for (int i = 0; i < currRowList.size(); i++) { //copy values from currRowList to currRowArray
+    		for (int i = 0; i < currRowList.size(); i++) {
     		      currRowArray[i] = currRowList.get(i);
     		}
     		rowClues.add(currRowArray);
-    		//don't need to clear currRowArray because new one is created every time :)
 	}
     	
     }
@@ -111,12 +106,25 @@ public class Board {
     
     //For troubleshooting: print out rowClues
     public void printRowClues() {
-	for (int r = 0; r < rowClues.size(); r++) {
-	   for (int c = 0; c < rowClues.get(r).length; c++) {
-	      System.err.println(r + "," + c + ":" + rowClues.get(r)[c]);
-	   }
+        assert rowClues.size() == rows;
+        System.err.println();
+	for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (squares[r][c]) {
+                    System.err.print('*');
+                }
+                else {
+                    System.err.print('.');
+                }
+            }
+            System.err.print(" |");
+            for (int c = 0; c < rowClues.get(r).length; c++) {
+                System.err.print(" ");
+                System.err.print(rowClues.get(r)[c]);
+            }
+            System.err.println();
 	}
-	System.err.println("rowClues size:" + rowClues.size());    
+        System.err.println();
     }
 }
 
