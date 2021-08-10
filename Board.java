@@ -48,33 +48,36 @@ public class Board {
     //Sets board's describing row clues based on what's in the board
     public void updateRowClues() {
     	
-    	for (int r = 0; r < rows; r++) {//rows in board, which correspond to int arrays in rowClues
-		ArrayList <Integer> currRowList = new ArrayList<Integer>(); //temporary ArrayList to store
-		//filled square counts since int[] lengths can't be changed once they're created
-		int currCount = 0; //count of how many filled squares in a row we've seen
-		for (int c = 0; c < cols; c++) {//cols in board, which could correspond to members of the int arrays
-			if (this.get(r, c) == BLACK) {
-				System.out.println(r + "," + c + "|" + "BLACK");
-				currCount++;
-				System.out.println("currCount:" + currCount);
-    	     		}
-    	    		else {
-    	      			if (currCount != 0) {currRowList.add(currCount);} //if there are bugs, this may be the source if it passed by reference... 
-    	      			//though there should be some boxing stuff that prevents that...
-    	      			//as you can tell, passing by reference vs passing by value is not my strong suit
-    	      			//(hopefully I'll improve on it as I get more practice and experience :) )
-    	      			currCount = 0;
-    	     		}
-    	   	}
-    	   	//end of row reached
-    	   	int[] currRowArray = new int[currRowList.size()];
-    	   	//(there is potential for bugs here as well if currRowArray is deleted after the for loop,
-    	   	//or there aren't new arrays being created)
-    		for (int i = 0; i < currRowList.size(); i++) { //copy values from currRowList to currRowArray
-    		      currRowArray[i] = currRowList.get(i);
-    		}
-    		rowClues.add(currRowArray);
-    		//don't need to clear currRowArray because new one is created every time :)
+        ArrayList<int[]> rowClues = new ArrayList<int[]>();
+
+    	for (int r = 0; r < rows; r++) {
+            // Descriptor for current row.
+            ArrayList<Integer> currRowList = new ArrayList<Integer>();
+
+            // Filled square counts since int[] lengths
+            // can't be changed once they're created count
+            // of how many filled squares in a row we've
+            // seen.
+            int currCount = 0;
+            for (int c = 0; c < cols; c++) {
+                if (this.get(r, c) == BLACK) {
+                    System.err.println(r + "," + c + "|" + "BLACK");
+                    currCount++;
+                    System.err.println("currCount:" + currCount);
+                }
+                else {
+                    if (currCount != 0) {
+                        currRowList.add(currCount);
+                    } 
+                    currCount = 0;
+                }
+            }
+
+            int[] currRowArray = new int[currRowList.size()];
+            for (int i = 0; i < currRowList.size(); i++) {
+                  currRowArray[i] = currRowList.get(i);
+            }
+            rowClues.add(currRowArray);
 	}
     	
     }
