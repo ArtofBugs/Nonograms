@@ -9,8 +9,10 @@ public class Board {
     boolean squares[][];
     ArrayList<int[]> rowClues = new ArrayList<int[]>();
     ArrayList<int[]> colClues = new ArrayList<int[]>();
-    final boolean BLACK = true; //as in, filled and unfilled -- colored nonograms not yet supported
-    final boolean WHITE = false; //an additional idea (for whenever, if ever, colored nonograms will
+    //as in, filled and unfilled -- colored nonograms not yet supported
+    final boolean BLACK = true;
+    final boolean WHITE = false;
+    //an additional idea (for whenever, if ever, colored nonograms will
     //be supported): instead of true vs false, colors could be indicated by ints
     //see NonParser for explanation of clue layouts
 
@@ -54,12 +56,13 @@ public class Board {
 		int currCount = 0; //count of how many filled squares in a row we've seen
 		for (int c = 0; c < cols; c++) {//cols in board, which could correspond to members of the int arrays
 			if (this.get(r, c) == BLACK) {
-				System.out.println(r + "," + c + "|" + "BLACK");
+				System.err.println(r + "," + c + "|" + "BLACK");
 				currCount++;
-				System.out.println("currCount:" + currCount);
+				System.err.println("currCount:" + currCount);
     	     		}
     	    		else {
-    	      			if (currCount != 0) {currRowList.add(currCount);} //if there are bugs, this may be the source if it passed by reference... 
+    	      			if (currCount != 0) {currRowList.add(currCount);}
+    	      			//if there are bugs, this may be the source if it passed by reference... 
     	      			//though there should be some boxing stuff that prevents that...
     	      			//as you can tell, passing by reference vs passing by value is not my strong suit
     	      			//(hopefully I'll improve on it as I get more practice and experience :) )
@@ -110,10 +113,10 @@ public class Board {
     public void printRowClues() {
 	for (int r = 0; r < rowClues.size(); r++) {
 	   for (int c = 0; c < rowClues.get(r).length; c++) {
-	      System.out.println(r + "," + c + ":" + rowClues.get(r)[c]);
+	      System.err.println(r + "," + c + ":" + rowClues.get(r)[c]);
 	   }
 	}
-	System.out.println("rowClues size:" + rowClues.size());    
+	System.err.println("rowClues size:" + rowClues.size());    
     }
 }
 
