@@ -107,8 +107,7 @@ public class BruteForce {
 			//return;
 			
 			
-			
-			//operate on the finished board -- check to see if it fits the clues
+			//convert finished board to a Board object; then check to see if it fits the clues
 			//TODO
 			
 		}

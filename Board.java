@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class Board {
     int rows, cols;
     boolean squares[][];
-    ArrayList<int[]> rowClues =  new ArrayList<int[]>();
-    ArrayList<int[]> colClues =  new ArrayList<int[]>();
+    ArrayList<int[]> rowClues = new ArrayList<int[]>();
+    ArrayList<int[]> colClues = new ArrayList<int[]>();
     final boolean BLACK = true; //as in, filled and unfilled -- colored nonograms not yet supported
     final boolean WHITE = false; //an additional idea (for whenever, if ever, colored nonograms will
     //be supported): instead of true vs false, colors could be indicated by ints
@@ -18,7 +18,19 @@ public class Board {
         this.rows = rows;
         this.cols = cols;
         this.squares = new boolean[rows][cols];
-        rowClues = updateRowClues();
+        
+        this.set(0, 1, true);
+        this.set(0,0,true);
+        this.set(1,1,true);
+        
+        updateRowClues();
+        ///*For troubleshooting: print out rowClues
+	for (int r = 0; r < rowClues.size(); r++) {
+	   for (int c = 0; c < rowClues.get(r).length; c++) {
+	      System.out.println(r + "," + c + ":" + rowClues.get(r)[c]);
+	   }
+	}        
+	// */
     }
     
     //Creates a new Board that is a copy of this one
@@ -49,23 +61,31 @@ public class Board {
     //Sets board's describing row clues based on what's in the board
     public void updateRowClues() {
     	int currCount = 0; //count of how many filled squares in a row we've seen
-    	ArrayList <Integer> currRow = new ArrayList<Integer>(); //temporary ArrayList to store
-    	//filled square counts since int[] lengths can't be changed once they're created
     	for (int r = 0; r < rows; r++) {//rows in board, which correspond to int arrays in rowClues
-    	   for (int c = 0; c < cols; c++) {//cols in board, which could correspond to members of the int arrays
-    	      if (this.get(r, c) == BLACK) {
-    	      	currCount++;
-    	      }
-    	      else {
-    	      	currRow.add(currCount); //if there are bugs, this may be the source if
-    	      	//it passed by reference... though there should be some boxing stuff that prevents that...
-    	      	currCount = 0;
-    	      }
-    	   }
-    	   //at the end of the row, create a real int[] to replace the temporary currRow ArrayList
-    	   //then copy values to it and add it to the rowClues
-    	   //then clear currRow (be careful here with passing!) so it can be used for the next row
-    	}
+		ArrayList <Integer> currRowList = new ArrayList<Integer>(); //temporary ArrayList to store
+		//filled square counts since int[] lengths can't be changed once they're created
+		for (int c = 0; c < cols; c++) {//cols in board, which could correspond to members of the int arrays
+			if (this.get(r, c) == BLACK) {
+				currCount++;
+    	     		}
+    	    		else {
+    	      			if (currCount != 0) {currRowList.add(currCount);} //if there are bugs, this may be the source if it passed by reference... 
+    	      			//though there should be some boxing stuff that prevents that...
+    	      			//as you can tell, passing by reference vs passing by value is not my strong suit
+    	      			//(hopefully I'll improve on it as I get more practice and experience :) )
+    	      			currCount = 0;
+    	     		}
+    	   	}
+    	   	//end of row reached
+    	   	int[] currRowArray = new int[currRowList.size()];
+    	   	//(there is potential for bugs here as well if currRowArray is deleted after the for loop,
+    	   	//or there aren't new arrays being created)
+    		for (int i = 0; i < currRowList.size(); i++) { //copy values from currRowList to currRowArray
+    		      currRowArray[i] = currRowList.get(i);
+    		}
+    		rowClues.add(currRowArray);
+    		//don't need to clear currRowArray because new one is created every time :)
+	}
     	
     }
     
