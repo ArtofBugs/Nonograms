@@ -120,7 +120,7 @@ public class NonParser {
 		}
 	}
 	
-	//Layout: clues is an ArrayList of ArrayLists of Integers. The inner ArrayLists are lists of clues in each row;
+	//Layout: rowClues is an ArrayList of int arrays. The int arrays contain the clues in each row;
 	//the outer ArrayList represents a list of rows.
 	public static ArrayList<int[]> findRowClues (File file) {
 		ArrayList<int[]> rowClues = new ArrayList<int[]>();
