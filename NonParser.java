@@ -28,6 +28,7 @@ public class NonParser {
 		new NonParser();
 	}
 	
+	//Look for the "height" key in the file and return the height it points to
 	public static int findHeight(File file) {
 		
 		//int lines = 0;
@@ -76,9 +77,8 @@ public class NonParser {
 		}
 	}
 	
+	//Look for the "width" key in the file and return the width it points to
 	public static int findWidth(File file) {
-		
-		//int lines = 0;
 		int width = 0;
 		String currLine = "";
 		
@@ -101,9 +101,6 @@ public class NonParser {
 							return width;
 						}
 					}
-					//lines++;
-					//System.out.println(lines);
-					//try{Thread.sleep(100);}catch(InterruptedException e){System.out.println("e");};
 				
 				}
 				catch (NoSuchElementException nsee) { //no more lines; width still not found
