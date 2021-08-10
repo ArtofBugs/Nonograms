@@ -122,6 +122,21 @@ public class NonParser {
 	
 	//Layout: rowClues is an ArrayList of int arrays. The int arrays contain the clues in each row;
 	//the outer ArrayList represents a list of rows.
+	/*For example:
+	.........ARRAYLIST.........
+	.                         .	
+	    A	0) 1 | 2
+	    R	1) 3
+	    R	2) 7 | 1
+	    A	3) 6 | 2 | 3
+	    Y	4) 1 | 2 | 1
+	    S	5) 3 | 1
+	.                         .
+	...........................
+	
+	(That was fun! I might actually add what it represents on an actual nonogram later :P )
+	
+	*/
 	public static ArrayList<int[]> findRowClues (File file) {
 		ArrayList<int[]> rowClues = new ArrayList<int[]>();
 		int width = 0;
