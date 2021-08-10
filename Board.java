@@ -1,4 +1,5 @@
 /*
+Summer 2021
 */
 
 import java.util.ArrayList;
@@ -14,7 +15,8 @@ public class Board {
         this.cols = cols;
         this.squares = new boolean[rows][cols];
     }
-
+    
+    //Creates a new Board that is a copy of this one
     public Board clone() {
         Board result = new Board(this.rows, this.cols);
         for (int r = 0; r < this.rows; r++)
