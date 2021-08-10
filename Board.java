@@ -47,32 +47,39 @@ public class Board {
     	return cols;
     }
     
+    public static int[] generateClues(bool[] line) {
+        ArrayList<Integer> currClues = new ArrayList<Integer>();
+        // Count of how many filled squares in succession we've seen.
+        int currCount = 0; 
+        for (s: bool in line) {
+            if (s == BLACK) {
+                currCount++;
+            }
+            else {
+                if (currCount != 0) {
+                    currClues.add(currCount);
+                }
+                currCount = 0;
+            }
+            if (currCount != 0) {
+                currClues.add(currCount);
+            }
+            int[] result = new int[currClues.size()];
+            for (int i = 0; i < currClues.size(); i++) {
+                result[i] = currClues.get(i);
+            }
+            return result;
+	}
+    }
+
     // Sets board's describing row clues based on what's in the board.
     public void updateRowClues() {
     	
     	for (int r = 0; r < rows; r++) {
-		ArrayList <Integer> currRowList = new ArrayList<Integer>();
-                // Count of how many filled squares in a row we've seen.
-		int currCount = 0; 
-		for (int c = 0; c < cols; c++) {
-			if (this.get(r, c) == BLACK) {
-				currCount++;
-    	     		}
-    	    		else {
-    	      			if (currCount != 0) {
-                                        currRowList.add(currCount);
-                                }
-    	      			currCount = 0;
-    	     		}
-    	   	}
-                if (currCount != 0) {
-                        currRowList.add(currCount);
-                }
-    	   	int[] currRowArray = new int[currRowList.size()];
-    		for (int i = 0; i < currRowList.size(); i++) {
-    		      currRowArray[i] = currRowList.get(i);
-    		}
-    		rowClues.add(currRowArray);
+            bool[] row = new bool[cols];
+            // Fill in the row by looping through columns.
+            // Call generateClues(row) to get the clues.
+            // Add the clues to rowClues.
 	}
     	
     }
