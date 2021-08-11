@@ -13,12 +13,13 @@ public class BruteForce {
 	final int c = info.getCols();
 	final boolean WHITE = false;
 	final boolean BLACK = true;
-	ArrayList <Board> possibilites = new ArrayList <Board>();
+	ArrayList<boolean[][]> boards = new ArrayList <boolean[][]>();
+	ArrayList<Board> possibilites = new ArrayList<Board>();
 	
 	public BruteForce() {
 		System.out.println("r = " + r);
 		System.out.println("c = " + c);
-		recurse(new Board(r, c), 0, 0);
+		recurse(new boolean[r][c], 0, 0);
 	}
 	public static void main (String [] args) {
 		new BruteForce();
@@ -55,12 +56,21 @@ public class BruteForce {
 	}
 	
 	
-	//DELETE LATER
-	/*
+	// TO BE DELETED--------------
+	
 	public void recurse (boolean[][] currBoard, int currRow, int currCol) {
 		if (currCol < c-1) {
 			boolean[][] newBoard1 = new boolean[r][c];
-						
+			for (int i = 0; i < currBoard.length; i++) {
+				for (int j = 0; j < currBoard[0].length; j++) {
+					if (currBoard[i][j] == true) {
+						newBoard1[i][j] = true;
+					}
+					else {
+						newBoard1[i][j] = false;
+					}
+				}
+			}		
 			recurse(newBoard1, currRow, currCol+1);
 			boolean[][] newBoard2 = new boolean[r][c];
 			for (int i = 0; i < currBoard.length; i++) {
@@ -103,7 +113,10 @@ public class BruteForce {
 			newAddBoard2[currRow][currCol] = BLACK;
 			boards.add(newAddBoard2);
 		
-			
+			for (int n = 0; n < boards.size(); n++) {
+			   printBoard(boards.get(n));
+			}
+			System.out.println("Boards size: " + boards.size());
 			// convert finished board to a Board object; then check to see if it fits the clues
 			// TODO
 			
@@ -138,9 +151,10 @@ public class BruteForce {
 		}
 
 	}
-	*/
 	
-	//Print boards to standard output 
+	//---------------------------
+	
+	// Print boards to standard output 
 	public void printBoard(Board board) {
 		System.out.println("-------------------");
 		for (int i = 0; i < r; i++) {
@@ -151,9 +165,15 @@ public class BruteForce {
 		}
 	}
 	
-	/*
-	public boolean checker(boolean[][] grid, boolean[][] game) {
-		return false;
+	// Print boards to standard output 
+	public void printBoard(boolean[][] board) {
+		System.out.println("-------------------");
+		for (int i = 0; i < r; i++) {
+			for (int j = 0; j < c; j++) {
+				System.out.print(board[i][j] + "||");
+			}
+			System.out.println();
+		}
 	}
-	*/
+
 }
