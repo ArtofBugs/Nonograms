@@ -50,6 +50,10 @@ public class Board {
     	return cols;
     }
     
+    public boolean[][] getSquares (){
+    	return this.squares;
+    }
+    
     public static int[] generateClues(boolean[] line) {
         ArrayList<Integer> currClues = new ArrayList<Integer>();
         // Count of how many filled squares in succession we've seen.
