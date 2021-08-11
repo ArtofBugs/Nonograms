@@ -88,8 +88,21 @@ public class Board {
     	
     }
     
-    // Checks if this board's describing clues are the same as a set of given row clues.
-    // (If they are the same, this board is a solution to the given game.)
+    // Sets board's describing row clues based on what's in the board.
+    public void updateColClues() {
+    	
+    	for (int c = 0; c < cols; c++) {
+            boolean[] colLine = new boolean[rows];
+            for (int r = 0; r < rows; r++) {
+               colLine[r] = squares[r][c];
+            }
+            colClues.add(generateClues(colLine));
+		}
+    	
+    }
+    
+    // Checks if this board's describing row clues are the same as
+    // a set of given row clues.
     public boolean checkRowsSolution(ArrayList<int[]> newRowClues) {
     	if (newRowClues.size() != rowClues.size()) {
     		return false;
@@ -108,8 +121,30 @@ public class Board {
     	}
     	return true;
     }
+
+    // Checks if this board's describing col clues are the same as
+    // a set of given col clues.
+    public boolean checkColsSolution(ArrayList<int[]> newColClues) {
+    	if (newColClues.size() != colClues.size()) {
+    		return false;
+    	}
+		for (int c = 0; c < colClues.size(); c++) {
+			if (colClues.get(c).length != newColClues.get(c).length) {
+				return false;
+			}
+			if (colClues.get(c).length != 0) {
+				for (int r = 0; r < colClues.get(c).length; r++) {
+					if (colClues.get(c)[r] != newColClues.get(c)[r]) {
+						return false;
+					}
+				}
+			}
+    	}
+    	return true;
+    }
     
-    //For troubleshooting: print out rowClues.
+    
+    // For troubleshooting: print out rowClues.
     public void printRowClues() {
         assert rowClues.size() == rows;
         System.err.println();
@@ -126,6 +161,30 @@ public class Board {
             for (int c = 0; c < rowClues.get(r).length; c++) {
                 System.err.print(" ");
                 System.err.print(rowClues.get(r)[c]);
+            }
+            System.err.println();
+		}
+        System.err.println();
+	}
+	
+	// For troubleshooting: print out colClues
+	// (it will be rotated 90 degrees clockwise).
+    public void printColClues() {
+        assert colClues.size() == cols;
+        System.err.println();
+        for (int c = 0; c < cols; c++) {
+            for (int r = 0; r < rows; r++) {
+                if (squares[rows-1-r][c]) {
+                    System.err.print('*');
+                }
+                else {
+                    System.err.print('.');
+                }
+            }
+            System.err.print(" |");
+            for (int r = 0; r < colClues.get(c).length; r++) {
+                System.err.print(" ");
+                System.err.print(colClues.get(c)[colClues.get(c).length-1-r]);
             }
             System.err.println();
 		}
