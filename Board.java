@@ -54,6 +54,28 @@ public class Board {
     	return this.squares;
     }
     
+    public ArrayList<int[]> getRowClues(boolean update) {
+    	if (update) { 
+			updateRowClues(); 
+    	}
+    	return rowClues;
+    }
+    
+    public ArrayList<int[]> getColClues(boolean update) {
+    	if (update) { 
+			updateRowClues(); 
+    	}
+    	return colClues;
+    }
+    
+    public void setRowClues(ArrayList<int[]> newRowClues) {
+    	this.rowClues = newRowClues;
+    }
+    
+    public void setColClues(ArrayList<int[]> newColClues) {
+    	this.colClues = newColClues;
+    }
+    
     public static int[] generateClues(boolean[] line) {
         ArrayList<Integer> currClues = new ArrayList<Integer>();
         // Count of how many filled squares in succession we've seen.
@@ -88,6 +110,10 @@ public class Board {
                rowLine[c] = squares[r][c];
             }
             rowClues.add(generateClues(rowLine));
+            if (rowClues.get(r).length == 0) {
+            	int[] zero = {0};
+            	rowClues.set(r, zero);
+            }
 		}
     	
     }
@@ -101,6 +127,10 @@ public class Board {
                colLine[r] = squares[r][c];
             }
             colClues.add(generateClues(colLine));
+            if (rowClues.get(c).length == 0) {
+            	int[] zero = {0};
+            	rowClues.set(c, zero);
+            }
 		}
     	
     }

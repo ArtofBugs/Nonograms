@@ -42,11 +42,25 @@ public class BruteForce {
 		else {
 			Board newBoard5 = new Board(r, c);
 			newBoard5 = currBoard.clone();
-			printBoard(newBoard5);
+			newBoard5.updateRowClues();
+			newBoard5.updateColClues();
+			newBoard5.printRowClues();
+			if (newBoard5.checkRowsSolution(info.getRowClues(false))
+				&& newBoard5.checkColsSolution(info.getColClues(false))) {
+				System.err.println("SOLUTION");
+				printBoard(newBoard5);
+			}
 			Board newBoard6 = new Board(r, c);
 			newBoard6 = currBoard.clone();
 			newBoard6.set(currRow, currCol, BLACK);
-			printBoard(newBoard6);
+			newBoard6.updateRowClues();
+			newBoard6.updateColClues();
+			newBoard6.printRowClues();
+			if (newBoard6.checkRowsSolution(info.getRowClues(false))
+				&& newBoard6.checkColsSolution(info.getColClues(false))) {
+				System.err.println("SOLUTION");
+				printBoard(newBoard6);
+			}
 			return;
 		}
 	}
