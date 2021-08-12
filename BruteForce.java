@@ -8,7 +8,7 @@ import java.io.File;
 
 public class BruteForce {
 	
-	final Board info = NonParser.NonParser(new File("test.non"));
+	final Board info = NonParser.NonParser(new File("../nonogram-db/db/gnonograms/blender.non"));
 	final int r = info.getRows();
 	final int c = info.getCols();
 	static final boolean WHITE = false;
@@ -63,14 +63,19 @@ public class BruteForce {
 		}
 	}
 	
-	// Print boards to standard error.
+	// Print boards to standard output.
 	public void printBoard(Board board) {
-		System.err.println("-------------------");
+		System.out.println("-------------------");
 		for (int i = 0; i < r; i++) {
 			for (int j = 0; j < c; j++) {
-				System.err.print(board.getSquares()[i][j] + "||");
+				if (board.getSquares()[i][j]) {
+					System.out.print("* ");
+				}
+				else {
+					System.out.print(". ");
+				}
 			}
-			System.err.println();
+			System.out.println();
 		}
 	}
 }

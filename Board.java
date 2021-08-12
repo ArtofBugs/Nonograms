@@ -127,9 +127,9 @@ public class Board {
                colLine[r] = squares[r][c];
             }
             colClues.add(generateClues(colLine));
-            if (rowClues.get(c).length == 0) {
+            if (colClues.get(c).length == 0) {
             	int[] zero = {0};
-            	rowClues.set(c, zero);
+            	colClues.set(c, zero);
             }
 		}
     	
