@@ -17,9 +17,11 @@ puzzle, follow the format provided in the FORMAT.md file in mikix's nonogram-db
 repository to make your own .non file.
 
 To run the brute force solver on a command line, use "javac BruteForce.java"
-and hit enter/return. Then use "java BruteForce filepath" (replacing "filepath"
-with the path of your .non file) and hit enter/return again.
+and hit enter/return. Then use "java BruteForce filepath", replacing the word
+"filepath" with the path of your .non file and putting the path name inside
+quotation marks, and hit enter/return again.
+
 It may take some time for the solver to finish, but it should eventually print
-the amount of time it took to solve the puzzle as well as the solution to the
-puzzle. In the solution, asterisks (*) represent filled squares; periods (.)
-represent unfilled squares.
+the amount of time it took to solve the puzzle (this does not include parsing
+time) as well as the solution to the puzzle. In the solution, asterisks (*)
+represent filled squares; periods (.) represent unfilled squares.

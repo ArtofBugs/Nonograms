@@ -17,15 +17,11 @@ public class BruteForce {
 	Timer timer = new Timer();
 	
 	public BruteForce() {
-		// Scanner sysScanner = new Scanner(System.in);
-		// System.out.println("Enter file path");
-		// String path = sysScanner.nextLine();
 		info = NonParser.NonParser(new File(path));
 		r = info.getRows();
 		c = info.getCols();
 		timer.start();
 		recurse(new Board(r, c), 0, 0);
-		// sysScanner.close();
 	}
 	public static void main (String [] args) {
 		path = args[0];
