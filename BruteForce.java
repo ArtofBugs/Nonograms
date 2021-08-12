@@ -3,21 +3,32 @@ Uses brute force to generate all possible solutions to a given nonogram.
 Author: ArtofBugs | Date: Summer 2021
 */
 
-import java.util.ArrayList;
 import java.io.File;
+import java.util.Scanner;
 
 public class BruteForce {
 	
-	final Board info = NonParser.NonParser(new File("../nonogram-db/db/gnonograms/blender.non"));
-	final int r = info.getRows();
-	final int c = info.getCols();
+	static String path;
+	Board info;
+	int r;
+	int c;
 	static final boolean WHITE = false;
 	static final boolean BLACK = true;
+	Timer timer = new Timer();
 	
 	public BruteForce() {
+		// Scanner sysScanner = new Scanner(System.in);
+		// System.out.println("Enter file path");
+		// String path = sysScanner.nextLine();
+		info = NonParser.NonParser(new File(path));
+		r = info.getRows();
+		c = info.getCols();
+		timer.start();
 		recurse(new Board(r, c), 0, 0);
+		// sysScanner.close();
 	}
 	public static void main (String [] args) {
+		path = args[0];
 		new BruteForce();
 	}
 	
@@ -46,6 +57,7 @@ public class BruteForce {
 			newBoard5.updateColClues();
 			if (newBoard5.checkRowsSolution(info.getRowClues(false))
 				&& newBoard5.checkColsSolution(info.getColClues(false))) {
+				timer.stop();
 				System.out.println("SOLUTION");
 				printBoard(newBoard5);
 			}
@@ -56,6 +68,7 @@ public class BruteForce {
 			newBoard6.updateColClues();
 			if (newBoard6.checkRowsSolution(info.getRowClues(false))
 				&& newBoard6.checkColsSolution(info.getColClues(false))) {
+				timer.stop();
 				System.out.println("SOLUTION");
 				printBoard(newBoard6);
 			}

@@ -6,17 +6,11 @@ import java.util.ArrayList;
 
 public class NonParser {
 	
-	static Scanner sysScanner;
-	
 	public static Board NonParser(File file) {
 
-		// sysScanner = new Scanner(System.in);
-		// System.err.println("Enter file path");
-		// String path = sysScanner.nextLine();
 		Board info = new Board (findHeight(file), findWidth(file));
 		info.setRowClues(findRowClues(file));
 		info.setColClues(findColClues(file));
-		// sysScanner.close();
 		return info;
 
 	}
@@ -54,7 +48,6 @@ public class NonParser {
 				catch (NoSuchElementException nsee) {
 					System.err.println("No height found");
 					fileScanner.close();
-					// sysScanner.close();
 					System.exit(1);
 					return -1;					
 				}
@@ -94,7 +87,6 @@ public class NonParser {
 				catch (NoSuchElementException nsee) {
 					System.err.println("No width found");
 					fileScanner.close();
-					// sysScanner.close();
 					System.exit(1);
 					return -1;					
 				}
@@ -234,7 +226,6 @@ public class NonParser {
 					if (colClues.size() == 0) {
 						System.err.println("No columns found");
 						fileScanner.close();
-						// sysScanner.close();
 						System.exit(1);
 					}				
 				}
