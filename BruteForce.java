@@ -30,41 +30,36 @@ public class BruteForce {
 	
 	// Recursively generate board possibilities.
 	public void recurse (Board currBoard, int currRow, int currCol) {
-		// Recursive cases: if and else if
-		if (currCol < c-1) {
-			Board newBoard1 = currBoard.clone();
-			recurse(newBoard1, currRow, currCol+1);
-			Board newBoard2 = currBoard.clone();
-			newBoard2.set(currRow, currCol, BLACK);
-			recurse(newBoard2, currRow, currCol+1);
-		}
-		else if (currRow < r-1) {
-			Board newBoard3 = currBoard.clone();
-			recurse(newBoard3, currRow+1, 0);
-			Board newBoard4 = currBoard.clone();
-			newBoard4.set(currRow, currCol, BLACK);
-			recurse(newBoard4, currRow+1, 0);
-		}
+
 		// Base case
-		else {
-			Board newBoard5 = new Board(r, c);
-			newBoard5 = currBoard.clone();
-			if (newBoard5.checkRowsSolution(info.getRowClues(false))
-				&& newBoard5.checkColsSolution(info.getColClues(false))) {
+		if (currRow >= r) {
+			boolean rowsOk =
+                          currBoard.checkRowsSolution(info.getRowClues(false));
+                        boolean ok =
+                          rowsOk &&
+			  currBoard.checkColsSolution(info.getColClues(false));
+			if (ok) {
 				timer.stop();
 				System.out.println("SOLUTION");
-				newBoard5.printBoard();
-			}
-			Board newBoard6 = new Board(r, c);
-			newBoard6 = currBoard.clone();
-			newBoard6.set(currRow, currCol, BLACK);
-			if (newBoard6.checkRowsSolution(info.getRowClues(false))
-				&& newBoard6.checkColsSolution(info.getColClues(false))) {
-				timer.stop();
-				System.out.println("SOLUTION");
-				newBoard6.printBoard();
+				currBoard.printBoard();
 			}
 			return;
 		}
+
+		// Adjust the row and column indices to move to the
+		// next position after this.
+		int nextCol = currCol + 1;
+		int nextRow = currRow;
+		if (nextCol >= c) {
+			nextCol = 0;
+			nextRow = currRow + 1;
+		}
+
+		
+		Board newBoard = currBoard.clone();
+		newBoard.set(currRow, currCol, WHITE);
+		recurse(newBoard, nextRow, nextCol);
+		newBoard.set(currRow, currCol, BLACK);
+		recurse(newBoard, nextRow, nextCol);
 	}
 }
