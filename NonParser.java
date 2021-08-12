@@ -16,12 +16,6 @@ public class NonParser {
 		Board info = new Board (findHeight(file), findWidth(file));
 		info.setRowClues(findRowClues(file));
 		info.setColClues(findColClues(file));
-		System.err.println("Clues copied: " +
-			info.checkRowsSolution(findRowClues(file))
-			+ info.checkColsSolution(findColClues(file)));
-		System.err.println("Searching for:");
-		info.printRowClues();
-		System.err.println("START");
 		// sysScanner.close();
 		return info;
 
@@ -31,7 +25,7 @@ public class NonParser {
 		new NonParser();
 	}
 	
-	//Look for the "height" key in the file and return the height it points to
+	// Look for the "height" key in the file and return the height it points to.
 	public static int findHeight(File file) {
 		
 		int height = 0;
@@ -43,7 +37,6 @@ public class NonParser {
 				try {
 				
 					currLine = fileScanner.nextLine();
-					System.err.println(currLine);
 					if (currLine.contains("height")) {
 						String heightStr = "";
 						for (int i = 0; i < currLine.length(); i++) {
@@ -53,13 +46,12 @@ public class NonParser {
 						}
 						if (!heightStr.isEmpty()) {
 							height = Integer.parseInt(heightStr);
-							//System.err.println("height: " + height);
 							return height;
 						}
 					}
 				
 				}
-				catch (NoSuchElementException nsee) { //no more lines; height still not found
+				catch (NoSuchElementException nsee) {
 					System.err.println("No height found");
 					fileScanner.close();
 					// sysScanner.close();
@@ -69,14 +61,13 @@ public class NonParser {
 			}		
 		}
 		catch (IOException ex) {
-			// ex.printStackTrace();
 			System.err.println("File not found.");
 			System.exit(1);
 			return -1;
 		}
 	}
 	
-	//Look for the "width" key in the file and return the width it points to
+	// Look for the "width" key in the file and return the width it points to.
 	public static int findWidth(File file) {
 		int width = 0;
 		String currLine = "";
@@ -86,7 +77,6 @@ public class NonParser {
 			while (true) {
 				try {
 					currLine = fileScanner.nextLine();
-					System.err.println(currLine);
 					if (currLine.contains("width")) {
 						String widthStr = "";
 						for (int i = 0; i < currLine.length(); i++) {
@@ -96,7 +86,6 @@ public class NonParser {
 						}
 						if (!widthStr.isEmpty()) {
 							width = Integer.parseInt(widthStr);
-							// System.err.println("width: " + width);
 							return width;
 						}
 					}
@@ -112,7 +101,6 @@ public class NonParser {
 			}		
 		}
 		catch (IOException ex) {
-			//ex.printStackTrace();
 			System.err.println("File not found.");
 			System.exit(1);
 			return -1;
@@ -122,20 +110,19 @@ public class NonParser {
 	//Layout: rowClues is an ArrayList of int arrays. The int arrays contain the clues in each row;
 	//the outer ArrayList represents a list of rows.
 	/*For example:
-	.........ARRAYLIST.........
+	.........ARRAYLIST.........    
 	.                         .	
-	    A	0) 1 | 2
-	    R	1) 3
-	    R	2) 7 | 1
-	    A	3) 6 | 2 | 3
-	    Y	4) 1 | 2 | 1
-	    S	5) 3 | 1
+	    A	0) 2 | 2 | 4 | 3                 . * * . . . * * . * * * * . . * * * . .
+	    R	1) 2 | 2 | 2 | 2                 . . * * . * * . . * * . . . * * . . . .
+	    R	2) 3 | 4 | 3            might    . . . * * * . . . * * * * . * * * . . .
+	    A	3) 1 | 4 | 3         correspond  . . . . * . . . . * * * * . . * * * . .
+	    Y	4) 1 | 2 | 2             to      . . . . * . . . . * * . . . . . * * . .
+	    S	5) 1 | 4 | 3                     . . . . * . . . . * * * * . * * * . . .
 	.                         .
 	...........................
 	
-	(I might actually add what it represents on an actual nonogram later :P )
-	
 	*/
+	
 	public static ArrayList<int[]> findRowClues (File file) {
 		ArrayList<int[]> rowClues = new ArrayList<int[]>();
 		String currLine = "";
@@ -144,14 +131,12 @@ public class NonParser {
 			while (true) {
 				try {
 					currLine = fileScanner.nextLine();
-					System.err.println(currLine);
 					if (currLine.contains("rows")) {
 						int lineNum = 0;
 						while (true) {
 							try {
 								lineNum++;
 								currLine = fileScanner.nextLine();
-								System.err.println("Clues: " + lineNum + ":" + currLine);
 								if (currLine.isEmpty()) {
 									break;
 								}
@@ -183,14 +168,34 @@ public class NonParser {
 			}		
 		}
 		catch (IOException ex) {
-			// ex.printStackTrace();
 			System.err.println("File not found.");
 			System.exit(1);
 		}
-		System.err.println("rowClues returns here");
 		return rowClues;
 	}
 	
+	/* colClues follows a layout similar to rowClues:
+	
+	  ...                                        ...
+	A .                                            .
+	R .               A R R A Y S                  .
+	R . ========================================== .
+	A .                       1 1                  .
+        Y .                       - -                  .
+        L .                       2 2   2 4 1 1 0 0    .
+        I .                       - -   - - - - - -    .
+        S . 0 1 2 2 4 2 2 1 0 6 6 1 1 0 1 1 4 2 0 0    .
+        T .                                            .
+        S .                                            .
+          ...                                        ...
+          
+	    . * * . . . * * . * * * * . . * * * . .
+	    . . * * . * * . . * * . . . * * . . . .
+	    . . . * * * . . . * * * * . * * * . . .
+	    . . . . * . . . . * * * * . . * * * . .
+	    . . . . * . . . . * * . . . . . * * . .
+	    . . . . * . . . . * * * * . * * * . . .
+	*/
 	public static ArrayList<int[]> findColClues (File file) {
 		ArrayList<int[]> colClues = new ArrayList<int[]>();
 		String currLine = "";
@@ -199,14 +204,12 @@ public class NonParser {
 			while (true) {
 				try {
 					currLine = fileScanner.nextLine();
-					System.err.println(currLine);
 					if (currLine.contains("columns")) {
 						int lineNum = 0;
 						while (true) {
 							try {
 								lineNum++;
 								currLine = fileScanner.nextLine();
-								System.err.println("Clues: " + lineNum + ":" + currLine);
 								if (currLine.isEmpty()) {
 									break;
 								}
@@ -229,7 +232,7 @@ public class NonParser {
 				}
 				catch (NoSuchElementException nsee) {
 					if (colClues.size() == 0) {
-						System.err.println("No rows found");
+						System.err.println("No columns found");
 						fileScanner.close();
 						// sysScanner.close();
 						System.exit(1);
@@ -238,11 +241,9 @@ public class NonParser {
 			}		
 		}
 		catch (IOException ex) {
-			// ex.printStackTrace();
 			System.err.println("File not found.");
 			System.exit(1);
 		}
-		System.err.println("colClues returns here");
 		return colClues;
 	}
 }

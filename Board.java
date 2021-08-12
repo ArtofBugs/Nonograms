@@ -118,7 +118,7 @@ public class Board {
     	
     }
     
-    // Sets board's describing row clues based on what's in the board.
+    // Sets board's describing column clues based on what's in the board.
     public void updateColClues() {
     	
     	for (int c = 0; c < cols; c++) {
@@ -157,7 +157,7 @@ public class Board {
     }
 
     // Checks if this board's describing col clues are the same as
-    // a set of given col clues.
+    // a set of given column clues.
     public boolean checkColsSolution(ArrayList<int[]> newColClues) {
     	if (newColClues.size() != colClues.size()) {
     		return false;

@@ -21,7 +21,7 @@ public class BruteForce {
 		new BruteForce();
 	}
 	
-	// Recursively generate board possibilites
+	// Recursively generate board possibilities.
 	public void recurse (Board currBoard, int currRow, int currCol) {
 		// Recursive cases: if and else if
 		if (currCol < c-1) {
@@ -44,10 +44,9 @@ public class BruteForce {
 			newBoard5 = currBoard.clone();
 			newBoard5.updateRowClues();
 			newBoard5.updateColClues();
-			newBoard5.printRowClues();
 			if (newBoard5.checkRowsSolution(info.getRowClues(false))
 				&& newBoard5.checkColsSolution(info.getColClues(false))) {
-				System.err.println("SOLUTION");
+				System.out.println("SOLUTION");
 				printBoard(newBoard5);
 			}
 			Board newBoard6 = new Board(r, c);
@@ -55,17 +54,16 @@ public class BruteForce {
 			newBoard6.set(currRow, currCol, BLACK);
 			newBoard6.updateRowClues();
 			newBoard6.updateColClues();
-			newBoard6.printRowClues();
 			if (newBoard6.checkRowsSolution(info.getRowClues(false))
 				&& newBoard6.checkColsSolution(info.getColClues(false))) {
-				System.err.println("SOLUTION");
+				System.out.println("SOLUTION");
 				printBoard(newBoard6);
 			}
 			return;
 		}
 	}
 	
-	// Print boards to standard error
+	// Print boards to standard error.
 	public void printBoard(Board board) {
 		System.err.println("-------------------");
 		for (int i = 0; i < r; i++) {
