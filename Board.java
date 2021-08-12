@@ -138,6 +138,7 @@ public class Board {
     // Checks if this board's describing row clues are the same as
     // a set of given row clues.
     public boolean checkRowsSolution(ArrayList<int[]> newRowClues) {
+    	updateRowClues();
     	if (newRowClues.size() != rowClues.size()) {
     		return false;
     	}
@@ -159,6 +160,7 @@ public class Board {
     // Checks if this board's describing col clues are the same as
     // a set of given column clues.
     public boolean checkColsSolution(ArrayList<int[]> newColClues) {
+    	updateColClues();
     	if (newColClues.size() != colClues.size()) {
     		return false;
     	}
@@ -223,6 +225,22 @@ public class Board {
             System.err.println();
 		}
         System.err.println();
+	}
+	
+	// Print boards to standard output.
+	public void printBoard() {
+		System.out.println("-------------------");
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if (this.getSquares()[i][j]) {
+					System.out.print("* ");
+				}
+				else {
+					System.out.print(". ");
+				}
+			}
+			System.out.println();
+		}
 	}
 }
 

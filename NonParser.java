@@ -153,7 +153,6 @@ public class NonParser {
 					if (rowClues.size() == 0) {
 						System.err.println("No rows found");
 						fileScanner.close();
-						// sysScanner.close();
 						System.exit(1);
 					}				
 				}
