@@ -1,0 +1,20 @@
+title "2×2"
+by "Bart Massey"
+license "GPL-3.0 License (see repo at https://github.com/ArtofBugs/Nonograms for full license)"
+width 2
+height 2
+
+columns
+1
+
+
+rows
+
+1
+
+goal "0010"
+
+. .
+* .
+
+
