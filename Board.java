@@ -1,21 +1,26 @@
 /*
+Nonogram board representation
+Oria Weng
 Summer 2021
 */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Board {
     int rows, cols;
     boolean squares[][];
+    // Clues provided with the puzzle.
     // See NonParser for explanation of clue layouts.
-    ArrayList<int[]> rowClues = new ArrayList<int[]>();
-    ArrayList<int[]> colClues = new ArrayList<int[]>();
+    ArrayList<int[]> rowClues;
+    ArrayList<int[]> colClues;
     // True/false currently refer to filled and unfilled;
     // colored nonograms not yet supported. If or when they
     // become supported, colors could be indicated by ints.
     final static boolean BLACK = true;
     final static boolean WHITE = false;
    
+    final static boolean debugEqualClues = false;
 
     public Board(int rows, int cols) {
         this.rows = rows;
@@ -54,28 +59,6 @@ public class Board {
     	return this.squares;
     }
     
-    public ArrayList<int[]> getRowClues(boolean update) {
-    	if (update) { 
-			updateRowClues(); 
-    	}
-    	return rowClues;
-    }
-    
-    public ArrayList<int[]> getColClues(boolean update) {
-    	if (update) { 
-			updateRowClues(); 
-    	}
-    	return colClues;
-    }
-    
-    public void setRowClues(ArrayList<int[]> newRowClues) {
-    	this.rowClues = newRowClues;
-    }
-    
-    public void setColClues(ArrayList<int[]> newColClues) {
-    	this.colClues = newColClues;
-    }
-    
     public static int[] generateClues(boolean[] line) {
         ArrayList<Integer> currClues = new ArrayList<Integer>();
         // Count of how many filled squares in succession we've seen.
@@ -101,84 +84,77 @@ public class Board {
 		return result;
     }
 
-    // Sets board's describing row clues based on what's in the board.
-    public void updateRowClues() {
+    // Gets board's describing row clues based on what's in the board.
+    public ArrayList<int[]> generateRowClues() {
     	
+        ArrayList<int[]> rowClues = new ArrayList<int[]>();
     	for (int r = 0; r < rows; r++) {
             boolean[] rowLine = new boolean[cols];
             for (int c = 0; c < cols; c++) {
                rowLine[c] = squares[r][c];
             }
             rowClues.add(generateClues(rowLine));
-            if (rowClues.get(r).length == 0) {
-            	int[] zero = {0};
-            	rowClues.set(r, zero);
-            }
-		}
-    	
+        }
+    	return rowClues;
     }
     
-    // Sets board's describing column clues based on what's in the board.
-    public void updateColClues() {
+    // Gets board's describing column clues based on what's in the board.
+    public ArrayList<int[]> generateColClues() {
     	
+        ArrayList<int[]> colClues = new ArrayList<int[]>();
     	for (int c = 0; c < cols; c++) {
             boolean[] colLine = new boolean[rows];
             for (int r = 0; r < rows; r++) {
                colLine[r] = squares[r][c];
             }
             colClues.add(generateClues(colLine));
-            if (colClues.get(c).length == 0) {
-            	int[] zero = {0};
-            	colClues.set(c, zero);
-            }
-		}
-    	
-    }
-    
-    // Checks if this board's describing row clues are the same as
-    // a set of given row clues.
-    public boolean checkRowsSolution(ArrayList<int[]> newRowClues) {
-    	updateRowClues();
-    	if (newRowClues.size() != rowClues.size()) {
-    		return false;
-    	}
-		for (int r = 0; r < rowClues.size(); r++) {
-			if (rowClues.get(r).length != newRowClues.get(r).length) {
-				return false;
-			}
-			if (rowClues.get(r).length != 0) {
-				for (int c = 0; c < rowClues.get(r).length; c++) {
-					if (rowClues.get(r)[c] != newRowClues.get(r)[c]) {
-						return false;
-					}
-				}
-			}
-    	}
-    	return true;
+        }
+    	return colClues;
     }
 
-    // Checks if this board's describing col clues are the same as
-    // a set of given column clues.
-    public boolean checkColsSolution(ArrayList<int[]> newColClues) {
-    	updateColClues();
-    	if (newColClues.size() != colClues.size()) {
-    		return false;
-    	}
-		for (int c = 0; c < colClues.size(); c++) {
-			if (colClues.get(c).length != newColClues.get(c).length) {
-				return false;
-			}
-			if (colClues.get(c).length != 0) {
-				for (int r = 0; r < colClues.get(c).length; r++) {
-					if (colClues.get(c)[r] != newColClues.get(c)[r]) {
-						return false;
-					}
-				}
-			}
-    	}
-    	return true;
+    static void printClues(ArrayList<int[]> c) {
+        for (int[] line: c) {
+            System.err.println(Arrays.toString(line));
+        }
+        System.err.println();
+    }
+
+    static boolean equalClues(ArrayList<int[]> c1, ArrayList<int[]> c2) {
+        if (debugEqualClues) {
+            System.err.println("equalClues");
+            System.err.println("c1");
+            printClues(c1);
+            System.err.println("c2");
+            printClues(c2);
+            System.err.println("size check");
+        }
+        int nc1 = c1.size();
+        int nc2 = c2.size();
+        if (nc1 != nc2) {
+            return false;
+        }
+        if (debugEqualClues) {
+            System.err.println("size check passed");
+        }
+        for (int i = 0; i < nc1; i++) {
+            int[] a1 = c1.get(i);
+            int[] a2 = c2.get(i);
+            if (!Arrays.equals(a1, a2)) {
+                return false;
+            }
+        }
+        if (debugEqualClues) {
+            System.err.println("passed");
+        }
+        return true;
     }
     
+    // Checks whether the current board matches the current clues.
+    public boolean solved() {
+        return
+            equalClues(generateRowClues(), rowClues) &&
+            equalClues(generateColClues(), colClues);
+    }
     
     // For troubleshooting: print out rowClues.
     public void printRowClues() {
@@ -225,22 +201,22 @@ public class Board {
             System.err.println();
 		}
         System.err.println();
-	}
-	
-	// Print boards to standard output.
-	public void printBoard() {
-		System.out.println("-------------------");
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				if (this.getSquares()[i][j]) {
-					System.out.print("* ");
-				}
-				else {
-					System.out.print(". ");
-				}
-			}
-			System.out.println();
-		}
-	}
+    }
+
+    // Print boards to standard output.
+    public void printBoard() {
+            System.out.println("-------------------");
+            for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < cols; j++) {
+                            if (this.getSquares()[i][j]) {
+                                    System.out.print("* ");
+                            }
+                            else {
+                                    System.out.print(". ");
+                            }
+                    }
+                    System.out.println();
+            }
+    }
 }
 

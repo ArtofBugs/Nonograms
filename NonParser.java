@@ -9,8 +9,8 @@ public class NonParser {
 	public static Board NonParser(File file) {
 
 		Board info = new Board (findHeight(file), findWidth(file));
-		info.setRowClues(findRowClues(file));
-		info.setColClues(findColClues(file));
+		info.rowClues = findRowClues(file);
+		info.colClues = findColClues(file);
 		return info;
 
 	}
