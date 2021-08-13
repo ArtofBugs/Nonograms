@@ -13,22 +13,24 @@ public class BruteForce {
 	static Timer timer = new Timer();
 	
 	public static void main (String [] args) {
-		Board info = NonParser.NonParser(new File(args[0]));
+		Board work = NonParser.NonParser(new File(args[0]));
 		timer.start();
-		recurse(info, 0, 0);
+		boolean soln = recurse(work, 0, 0);
+		timer.stop();
+		if (soln) {
+			System.out.println("SOLUTION");
+			work.printBoard();
+                } else {
+			System.out.println("NO SOLUTION");
+		}
 	}
 
 	// Recursively generate board possibilities.
-	public static void recurse (Board currBoard, int currRow, int currCol) {
+	public static boolean recurse (Board currBoard, int currRow, int currCol) {
 
 		// Base case
 		if (currRow >= currBoard.rows) {
-			if (currBoard.solved()) {
-				timer.stop();
-				System.out.println("SOLUTION");
-				currBoard.printBoard();
-			}
-			return;
+                    return currBoard.solved();
 		}
 
 		// Adjust the row and column indices to move to the
@@ -41,8 +43,10 @@ public class BruteForce {
 		}
 
 		currBoard.set(currRow, currCol, WHITE);
-		recurse(currBoard, nextRow, nextCol);
+		if (recurse(currBoard, nextRow, nextCol)) {
+                    return true;
+                }
 		currBoard.set(currRow, currCol, BLACK);
-		recurse(currBoard, nextRow, nextCol);
+		return recurse(currBoard, nextRow, nextCol);
 	}
 }
