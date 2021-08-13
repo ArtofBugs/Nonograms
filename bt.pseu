@@ -1,0 +1,9 @@
+To solve a nonogram n by backtracking on row i:
+    if i = nrows
+        this is a solution if all the column clues match
+         
+    for each possible row l:
+        c ← clue l
+        if c matches row i's clue
+            set row i to l
+            solve row i + 1 of n
