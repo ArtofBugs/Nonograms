@@ -5,12 +5,15 @@ import java.util.NoSuchElementException;
 import java.util.ArrayList;
 
 public class NonParser {
+	static int h, w;
 	
-	public static Board NonParser(File file) {
-
-		Board info = new Board (findHeight(file), findWidth(file));
-		info.setRowClues(findRowClues(file));
-		info.setColClues(findColClues(file));
+	public static Board0 NonParser(File file) {
+        
+        h = findHeight(file);
+        w = findWidth(file);
+		Board0 info = new Board0 (h, w);
+		info.rowClues = findRowClues(file);
+		info.colClues = findColClues(file);
 		return info;
 
 	}
@@ -29,7 +32,6 @@ public class NonParser {
 			Scanner fileScanner = new Scanner(file);
 			while (true) {
 				try {
-				
 					currLine = fileScanner.nextLine();
 					if (currLine.contains("height")) {
 						String heightStr = "";
@@ -99,17 +101,18 @@ public class NonParser {
 		}
 	}
 	
-	//Layout: rowClues is an ArrayList of int arrays. The int arrays contain the clues in each row;
-	//the outer ArrayList represents a list of rows.
+	//Layout: rowClues is an ArrayList of int arrays. The int arrays contain
+	//the clues in each row; the outer ArrayList represents a list of rows.
 	/*For example:
-	.........ARRAYLIST.........    
-	.                         .	
-	    A	0) 2 | 2 | 4 | 3                 . * * . . . * * . * * * * . . * * * . .
-	    R	1) 2 | 2 | 2 | 2                 . . * * . * * . . * * . . . * * . . . .
-	    R	2) 3 | 4 | 3            might    . . . * * * . . . * * * * . * * * . . .
-	    A	3) 1 | 4 | 3         correspond  . . . . * . . . . * * * * . . * * * . .
-	    Y	4) 1 | 2 | 2             to      . . . . * . . . . * * . . . . . * * . .
-	    S	5) 1 | 4 | 3                     . . . . * . . . . * * * * . * * * . . .
+    
+    .........ARRAYLIST.........    
+    .                         .	
+      A	0) 2 | 2 | 4 | 3               . * * . . . * * . * * * * . . * * * . .
+      R	1) 2 | 2 | 2 | 2               . . * * . * * . . * * . . . * * . . . .
+      R	2) 3 | 4 | 3           might   . . . * * * . . . * * * * . * * * . . .
+      A	3) 1 | 4 | 3        correspond . . . . * . . . . * * * * . . * * * . .
+      Y	4) 1 | 2 | 2            to     . . . . * . . . . * * . . . . . * * . .
+      S	5) 1 | 4 | 3                   . . . . * . . . . * * * * . * * * . . .
 	.                         .
 	...........................
 	
@@ -124,27 +127,19 @@ public class NonParser {
 				try {
 					currLine = fileScanner.nextLine();
 					if (currLine.contains("rows")) {
-						int lineNum = 0;
-						while (true) {
-							try {
-								lineNum++;
-								currLine = fileScanner.nextLine();
-								if (currLine.isEmpty()) {
-									break;
-								}
-								String[] clueStrings = currLine.split(",");
-								int[] clueInts = new int[clueStrings.length];
-								if (clueStrings.length == 0) {
-									break;
-								}
-								for (int i = 0; i < clueStrings.length; i++) {
-								   clueInts[i] = Integer.parseInt(clueStrings[i]);
-								}
-								rowClues.add(clueInts);
-							}
-							catch (NoSuchElementException nsee) {
-								break;
-							}
+						for (int row = 0; row < h; row++) {
+						    currLine = fileScanner.nextLine();
+							int[] clueInts = new int[0];
+							if (!currLine.isEmpty()) {
+							    String[] clueStrings = currLine.split(",");
+							    if (clueStrings.length != 0) {
+							        clueInts = new int[clueStrings.length];
+							        for (int i = 0; i < clueStrings.length; i++) {
+							            clueInts[i] = Integer.parseInt(clueStrings[i]);
+							        }
+							    }
+                            }
+                            rowClues.add(clueInts);
 						}
 						break;
 					}
@@ -167,18 +162,18 @@ public class NonParser {
 	
 	/* colClues follows a layout similar to rowClues:
 	
-	  ...                                        ...
-	A .                                            .
-	R .               A R R A Y S                  .
-	R . ========================================== .
-	A .                       1 1                  .
-        Y .                       - -                  .
-        L .                       2 2   2 4 1 1 0 0    .
-        I .                       - -   - - - - - -    .
-        S . 0 1 2 2 4 2 2 1 0 6 6 1 1 0 1 1 4 2 0 0    .
-        T .                                            .
-        S .                                            .
-          ...                                        ...
+       ...                                        ...
+     A .                                            .
+     R .               A R R A Y S                  .
+     R . ========================================== .
+     A .                       1 1                  .
+     Y .                       - -                  .
+     L .                       2 2   2 4 1 1        .
+     I .                       - -   - - - -        .
+     S . 0 1 2 2 4 2 2 1 0 6 6 1 1 0 1 1 4 2 0 0    .
+     T .                                            .
+     S .                                            .
+       ...                                        ...
           
 	    . * * . . . * * . * * * * . . * * * . .
 	    . . * * . * * . . * * . . . * * . . . .
@@ -196,34 +191,26 @@ public class NonParser {
 				try {
 					currLine = fileScanner.nextLine();
 					if (currLine.contains("columns")) {
-						int lineNum = 0;
-						while (true) {
-							try {
-								lineNum++;
-								currLine = fileScanner.nextLine();
-								if (currLine.isEmpty()) {
-									break;
-								}
-								String[] clueStrings = currLine.split(",");
-								int[] clueInts = new int[clueStrings.length];
-								if (clueStrings.length == 0) {
-									break;
-								}
-								for (int i = 0; i < clueStrings.length; i++) {
-								   clueInts[i] = Integer.parseInt(clueStrings[i]);
-								}
-								colClues.add(clueInts);
-							}
-							catch (NoSuchElementException nsee) {
-								break;
-							}
+						for (int col = 0; col < w; col++) {
+							currLine = fileScanner.nextLine();
+							int[] clueInts = new int[0];
+							if (!currLine.isEmpty()) {
+							    String[] clueStrings = currLine.split(",");
+							    if (clueStrings.length != 0) {
+							         clueInts = new int[clueStrings.length];
+							         for (int i = 0; i < clueStrings.length; i++) {
+							           clueInts[i] = Integer.parseInt(clueStrings[i]);
+							        }
+							    }
+                            }
+                            colClues.add(clueInts);
 						}
 						break;
 					}
 				}
 				catch (NoSuchElementException nsee) {
 					if (colClues.size() == 0) {
-						System.err.println("No columns found");
+						System.err.println("No cols found");
 						fileScanner.close();
 						System.exit(1);
 					}				
