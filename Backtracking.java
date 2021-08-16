@@ -2,119 +2,94 @@
 Uses backtracking algorithm to solve a nonogram.
 Author: ArtofBugs | Date: Summer 2021
 */
-
 import java.io.File;
+import java.util.Arrays;
 public class Backtracking {
-	
-	static String path;
-	Board info;
-	int r;
-	int c;
-	static final boolean WHITE = false;
-	static final boolean BLACK = true;
-	Timer timer = new Timer();
-	
-	public Backtracking (){
-		info = NonParser.NonParser(new File(path));
-		r = info.getRows();
-		c = info.getCols();
-		timer.start();
-		recurse(new Board(r, c), 0, 0);	
-	}
-	
-	public void recurse (Board currBoard, int currRow, int currCol) {
-		
-		if (currCol < c-1) {
-			Board newBoard1 = currBoard.clone();
-			recurse(newBoard1, currRow, currCol+1);
-			Board newBoard2 = currBoard.clone();
-			newBoard2.set(currRow, currCol, BLACK);
-			recurse(newBoard2, currRow, currCol+1);
-		}
-		else if (currRow < r-1) {
-			Board newBoard3 = currBoard.clone();
-			if (!checkRow(newBoard3, currRow)) {
-				return;
-			}
-			else {
-				recurse(newBoard3, currRow+1, 0);
-				System.err.println("success: " + currRow);
-			}
-			Board newBoard4 = currBoard.clone();
-			newBoard4.set(currRow, currCol, BLACK);
-			if (!checkRow(newBoard4, currRow)) {
-				return;
-			}
-			else {
-				recurse(newBoard4, currRow+1, 0);
-				System.err.println("success: " + currRow);
-			}
-		}
-		else {
-			Board newBoard5 = new Board(r, c);
-			newBoard5 = currBoard.clone();
-			if (newBoard5.checkRowsSolution(info.getRowClues(false))
-				&& newBoard5.checkColsSolution(info.getColClues(false))) {
-				timer.stop();
-				System.out.println("SOLUTION");
-				newBoard5.printBoard();
-			}
-			Board newBoard6 = new Board(r, c);
-			newBoard6 = currBoard.clone();
-			newBoard6.set(currRow, currCol, BLACK);
-			if (newBoard6.checkRowsSolution(info.getRowClues(false))
-				&& newBoard6.checkColsSolution(info.getColClues(false))) {
-				timer.stop();
-				System.out.println("SOLUTION");
-				newBoard6.printBoard();
-			}
-			return;
-		}
-		
-		/*if (currCol < c-1) {
-			boolean[] newLine = new boolean[c];
-			
-			Board newBoard2 = currBoard.clone();
-			newBoard2.set(currRow, currCol, BLACK);
-			recurse (newBoard2, currRow, currCol+1);
-		}
-		else {
-		}
-		*/
-		/*generate*/
-		
-		// generate all possible combos for this row
-			// for each row, if the generated clue would match the
-			// given clue for that row, continue to the next step
-			// otherwise return
-			
-			//(at this moment, it will generate combos without
-			//thinking about which ones are impossible
-	}
-	
-	public static void main(String[] args) {
-		path = args[0];
-		new Backtracking();
-	}
-	
-	public boolean checkRow(Board currBoard, int currRow) {
-		if (currBoard.getRowClues(true).get(currRow).length !=
-			info.getRowClues(false).get(currRow).length) {
-			System.err.println("failure - length mismatch: " + currRow);
-			currBoard.printBoard();
-			return false;
-		}
-		if (currBoard.getRowClues(false).get(currRow).length != 0) {
-			for (int col = 0; col <
-			currBoard.getRowClues(false).get(currRow).length; col++) {
-				if (currBoard.getRowClues(false).get(currRow)[col] !=
-					info.getRowClues(false).get(currRow)[col]) {
-					System.err.println("failure - content mismatch: " + currRow);
-					currBoard.printBoard();
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+    
+    static final boolean WHITE = false;
+    static final boolean BLACK = true;
+    static Timer timer = new Timer();
+    
+    public static void main(String[] args) {
+        String path = args[0];
+        Board work = NonParser.NonParser(new File(path));
+        timer.start();
+        boolean soln = solve(work, 0, 0);
+        timer.stop();
+        if (soln) {
+            System.out.println("SOLUTION");
+            work.printBoard();
+        }
+        else {
+            System.out.println("NO SOLUTION");
+        }
+    }
+    
+    public static boolean solve(Board currBoard, int currRow, int currCol) {
+        boolean continuing = true;
+        int r = currBoard.getRows();
+        int c = currBoard.getCols();
+        
+        // base case
+        if (currRow >= r) {
+            return currBoard.solved();
+        }
+        
+        int nextCol = currCol + 1;
+        int nextRow = currRow;
+        
+        currBoard.set(currRow, currCol, WHITE);
+        System.err.println("to white " + currRow + "," + currCol);
+        
+        if (nextCol >= c) {
+            boolean[] currLine = currBoard.getSquares()[currRow];
+            int[] currClues = currBoard.generateClues(currLine);
+            int[] givenClues = currBoard.rowClues.get(currRow);
+            if (Arrays.equals(currClues, givenClues)) {
+                System.err.println("this line works ~ " + currRow);
+                currBoard.printBoard();
+                nextCol = 0;
+                nextRow = currRow + 1;
+            }
+            else {
+                System.err.println("line doesn't work ~ " + currRow);
+                currBoard.printBoard();
+                continuing = false;
+            }
+        }
+        
+        if (continuing) {
+            System.err.println("solving " + nextRow + "," + nextCol);
+            currBoard.printBoard();
+            if (solve (currBoard, nextRow, nextCol)) {
+                System.err.println("trying");
+                return true;
+            }
+        }
+        
+        currBoard.set(currRow, currCol, BLACK);
+        System.err.println("to black " + currRow + "," + currCol);
+        
+        if (nextCol >= c) {
+            boolean[] currLine = currBoard.getSquares()[currRow];
+            int[] currClues = currBoard.generateClues(currLine);
+            int[] givenClues = currBoard.rowClues.get(currRow);
+            if (Arrays.equals(currClues, givenClues)) {
+                System.err.println("this line works ~ " + currRow);
+                currBoard.printBoard();
+                nextCol = 0;
+                nextRow = currRow + 1;
+            }
+            else {
+                System.err.println("line doesn't work ~ " + currRow);
+                currBoard.printBoard();
+                return false;
+            }
+        }
+        System.err.println("solving " + nextRow + "," + nextCol);
+        currBoard.printBoard();
+        System.err.println("trying");
+        return solve (currBoard, nextRow, nextCol);
+        
+    }
 }
