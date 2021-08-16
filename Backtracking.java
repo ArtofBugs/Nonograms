@@ -39,56 +39,40 @@ public class Backtracking {
         int nextRow = currRow;
         
         currBoard.set(currRow, currCol, WHITE);
-        System.err.println("to white " + currRow + "," + currCol);
         
         if (nextCol >= c) {
             boolean[] currLine = currBoard.getSquares()[currRow];
             int[] currClues = currBoard.generateClues(currLine);
             int[] givenClues = currBoard.rowClues.get(currRow);
             if (Arrays.equals(currClues, givenClues)) {
-                System.err.println("this line works ~ " + currRow);
-                currBoard.printBoard();
                 nextCol = 0;
                 nextRow = currRow + 1;
             }
             else {
-                System.err.println("line doesn't work ~ " + currRow);
-                currBoard.printBoard();
                 continuing = false;
             }
         }
         
         if (continuing) {
-            System.err.println("solving " + nextRow + "," + nextCol);
-            currBoard.printBoard();
             if (solve (currBoard, nextRow, nextCol)) {
-                System.err.println("trying");
                 return true;
             }
         }
         
         currBoard.set(currRow, currCol, BLACK);
-        System.err.println("to black " + currRow + "," + currCol);
         
         if (nextCol >= c) {
             boolean[] currLine = currBoard.getSquares()[currRow];
             int[] currClues = currBoard.generateClues(currLine);
             int[] givenClues = currBoard.rowClues.get(currRow);
             if (Arrays.equals(currClues, givenClues)) {
-                System.err.println("this line works ~ " + currRow);
-                currBoard.printBoard();
                 nextCol = 0;
                 nextRow = currRow + 1;
             }
             else {
-                System.err.println("line doesn't work ~ " + currRow);
-                currBoard.printBoard();
                 return false;
             }
         }
-        System.err.println("solving " + nextRow + "," + nextCol);
-        currBoard.printBoard();
-        System.err.println("trying");
         return solve (currBoard, nextRow, nextCol);
         
     }
