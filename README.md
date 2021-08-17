@@ -19,6 +19,10 @@ Then navigate to the new Nonograms folder using
 
 `cd ./Nonograms`
 
+Then type
+
+`chmod +x runner.sh`
+
 Now you can pick a solver and a puzzle. As an example, if I wanted to solve the
 included heart.non puzzle using brute force, I'd type
 
@@ -35,7 +39,7 @@ conclusion.
 ***************
 
 If you wanted to test other solvers or other puzzles in my repository, use
-the same command listed above but replace "BruteForce" with the name of the
+the same bash command listed above but replace "BruteForce" with the name of the
 solver you want (don't include ".java") and replace "heart.non" with the path
 of the puzzle file. Currently, the available solvers are brute force,
 backtracking, and row-column switching backtracking (called "RCBacktracking").
