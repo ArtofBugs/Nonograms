@@ -1,0 +1,38 @@
+title "yes"
+by "ArtofBugs"
+license "GPL-3.0 License (see repo at https://github.com/ArtofBugs/Nonograms for full license)"
+width 20
+height 6
+
+columns
+
+1
+2
+2
+4
+2
+2
+1
+
+6
+6
+1,2,1
+1,2,1
+
+2,1
+4,1
+1,4
+1,2
+
+
+
+rows
+2,2,4,3
+2,2,2,2
+3,4,3
+1,4,3
+1,2,2
+1,4,3
+
+goal "011000110111100111000011011001100011000000011100011110111000000010000111100111000000100001100000110000001000011110111000"
+
