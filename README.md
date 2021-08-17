@@ -16,13 +16,10 @@ enter/return key. You may need to install git first; you can use
 
 `sudo apt install git`
 
-To run the brute force solver from the command line, first use
+As an example, if I wanted to solve the included heart.non puzzle using brute
+force, I'd type
 
-`javac BruteForce.java`
-
-As an example, if I wanted to solve the included heart.non puzzle, I'd type
-
-`java BruteForce heart.non`
+`bash runner.sh BruteForce heart.non`
 
 It may take some time for the solver to finish, but it should eventually print
 the amount of time it took to solve the puzzle (this does not include parsing
@@ -31,7 +28,12 @@ represent filled squares; periods (.) represent unfilled squares.
 
 ***************
 
-You could test other .non files from mikix's repository by running
+If you wanted to test other solvers or other puzzles in my repository, use
+the same command listed above but replace "BruteForce" with the name of the
+solver you want (don't include ".java") and replace "heart.non" with the path
+of the puzzle file.
+
+You could also test other .non files from mikix's repository by running
 
 `cd ..`
 `git clone https://github.com/mikix/nonogram-db`
@@ -39,7 +41,7 @@ You could test other .non files from mikix's repository by running
 
 Then run
 
-`java BruteForce ../nonogram-db/db/folder/puzzle.non`
+`bash runner.sh solver ../nonogram-db/db/folder/puzzle`
 
 replacing "puzzle" with the name of the puzzle and "folder" with the name of
 the folder the puzzle is in (currently, this will be gnonograms, qnonograms, or
