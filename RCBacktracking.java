@@ -1,5 +1,6 @@
 /*
-Uses backtracking algorithm to solve a nonogram.
+Uses an algorithm similar to Backtracking.java but checks against column clues
+after trying each square as it generates row possibilities.
 Author: ArtofBugs | Date: Summer 2021
 */
 import java.io.File;
