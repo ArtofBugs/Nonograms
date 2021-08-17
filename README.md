@@ -1,4 +1,4 @@
-# Nonograms... this is a yet unfinished project :)
+# How to use the nonogram solvers in this repository!
 
 Currently, this project supports black-and-white nonograms following the .non
 nonogram file format; more information can be found at mikix's puzzle database
