@@ -7,11 +7,11 @@ import java.util.ArrayList;
 public class NonParser {
 	static int h, w;
 	
-	public static Board0 NonParser(File file) {
+	public static Board NonParser(File file) {
         
         h = findHeight(file);
         w = findWidth(file);
-		Board0 info = new Board0 (h, w);
+		Board info = new Board (h, w);
 		info.rowClues = findRowClues(file);
 		info.colClues = findColClues(file);
 		return info;
@@ -36,7 +36,8 @@ public class NonParser {
 					if (currLine.contains("height")) {
 						String heightStr = "";
 						for (int i = 0; i < currLine.length(); i++) {
-							if (currLine.charAt(i) <= '9' && currLine.charAt(i) >= '0') {
+							if (currLine.charAt(i) <= '9'
+							    && currLine.charAt(i) >= '0') {
 								heightStr += currLine.charAt(i);
 							}
 						}
@@ -75,7 +76,8 @@ public class NonParser {
 					if (currLine.contains("width")) {
 						String widthStr = "";
 						for (int i = 0; i < currLine.length(); i++) {
-							if (currLine.charAt(i) <= '9' && currLine.charAt(i) >= '0') {
+							if (currLine.charAt(i) <= '9'
+							    && currLine.charAt(i) >= '0') {
 								widthStr += currLine.charAt(i);
 							}
 						}
@@ -132,10 +134,13 @@ public class NonParser {
 							int[] clueInts = new int[0];
 							if (!currLine.isEmpty()) {
 							    String[] clueStrings = currLine.split(",");
-							    if (clueStrings.length != 0) {
+							    if (clueStrings.length != 0
+							        && !clueStrings[0].equals("0")) {
 							        clueInts = new int[clueStrings.length];
-							        for (int i = 0; i < clueStrings.length; i++) {
-							            clueInts[i] = Integer.parseInt(clueStrings[i]);
+							        for (int i = 0; i < clueStrings.length;
+							            i++) {
+							            clueInts[i] =
+							            Integer.parseInt(clueStrings[i]);
 							        }
 							    }
                             }
@@ -196,10 +201,13 @@ public class NonParser {
 							int[] clueInts = new int[0];
 							if (!currLine.isEmpty()) {
 							    String[] clueStrings = currLine.split(",");
-							    if (clueStrings.length != 0) {
-							         clueInts = new int[clueStrings.length];
-							         for (int i = 0; i < clueStrings.length; i++) {
-							           clueInts[i] = Integer.parseInt(clueStrings[i]);
+							    if (clueStrings.length != 0
+							        && !clueStrings[0].equals("0")) {
+							        clueInts = new int[clueStrings.length];
+							        for (int i = 0; i < clueStrings.length;
+							            i++) {
+							            clueInts[i]
+							            = Integer.parseInt(clueStrings[i]);
 							        }
 							    }
                             }
