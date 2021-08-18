@@ -8,63 +8,45 @@ import java.util.Scanner;
 
 public class BruteForce {
 	
-	static String path;
-	Board info;
-	int r;
-	int c;
 	static final boolean WHITE = false;
 	static final boolean BLACK = true;
-	Timer timer = new Timer();
+	static Timer timer = new Timer();
 	
-	public BruteForce() {
-		info = NonParser.NonParser(new File(path));
-		r = info.getRows();
-		c = info.getCols();
-		timer.start();
-		recurse(new Board(r, c), 0, 0);
-	}
 	public static void main (String [] args) {
-		path = args[0];
-		new BruteForce();
+		Board work = NonParser.NonParser(new File(args[0]));
+		timer.start();
+		boolean soln = recurse(work, 0, 0);
+		timer.stop();
+		if (soln) {
+			System.out.println("SOLUTION");
+			work.printBoard();
+                } else {
+			System.out.println("NO SOLUTION");
+		}
 	}
-	
+
 	// Recursively generate board possibilities.
-	public void recurse (Board currBoard, int currRow, int currCol) {
-		// Recursive cases: if and else if
-		if (currCol < c-1) {
-			Board newBoard1 = currBoard.clone();
-			recurse(newBoard1, currRow, currCol+1);
-			Board newBoard2 = currBoard.clone();
-			newBoard2.set(currRow, currCol, BLACK);
-			recurse(newBoard2, currRow, currCol+1);
-		}
-		else if (currRow < r-1) {
-			Board newBoard3 = currBoard.clone();
-			recurse(newBoard3, currRow+1, 0);
-			Board newBoard4 = currBoard.clone();
-			newBoard4.set(currRow, currCol, BLACK);
-			recurse(newBoard4, currRow+1, 0);
-		}
+	public static boolean recurse (Board currBoard, int currRow, int currCol) {
+
 		// Base case
-		else {
-			Board newBoard5 = new Board(r, c);
-			newBoard5 = currBoard.clone();
-			if (newBoard5.checkRowsSolution(info.getRowClues(false))
-				&& newBoard5.checkColsSolution(info.getColClues(false))) {
-				timer.stop();
-				System.out.println("SOLUTION");
-				newBoard5.printBoard();
-			}
-			Board newBoard6 = new Board(r, c);
-			newBoard6 = currBoard.clone();
-			newBoard6.set(currRow, currCol, BLACK);
-			if (newBoard6.checkRowsSolution(info.getRowClues(false))
-				&& newBoard6.checkColsSolution(info.getColClues(false))) {
-				timer.stop();
-				System.out.println("SOLUTION");
-				newBoard6.printBoard();
-			}
-			return;
+		if (currRow >= currBoard.rows) {
+                    return currBoard.solved();
 		}
+
+		// Adjust the row and column indices to move to the
+		// next position after this.
+		int nextCol = currCol + 1;
+		int nextRow = currRow;
+		if (nextCol >= currBoard.cols) {
+			nextCol = 0;
+			nextRow = currRow + 1;
+		}
+
+		currBoard.set(currRow, currCol, WHITE);
+		if (recurse(currBoard, nextRow, nextCol)) {
+                    return true;
+                }
+		currBoard.set(currRow, currCol, BLACK);
+		return recurse(currBoard, nextRow, nextCol);
 	}
 }

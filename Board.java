@@ -54,20 +54,6 @@ public class Board {
     	return this.squares;
     }
     
-    public ArrayList<int[]> getRowClues(boolean update) {
-    	if (update) { 
-			updateRowClues(); 
-    	}
-    	return rowClues;
-    }
-    
-    public ArrayList<int[]> getColClues(boolean update) {
-    	if (update) { 
-			updateRowClues(); 
-    	}
-    	return colClues;
-    }
-    
     public void setRowClues(ArrayList<int[]> newRowClues) {
     	this.rowClues = newRowClues;
     }
@@ -101,44 +87,50 @@ public class Board {
 		return result;
     }
 
-    // Sets board's describing row clues based on what's in the board.
-    public void updateRowClues() {
+    // Gets board's describing row clues based on what's in the board.
+    public ArrayList<int[]> getRowClues() {
     	
+        ArrayList<int[]> clues = new ArrayList<int[]>();
+
     	for (int r = 0; r < rows; r++) {
             boolean[] rowLine = new boolean[cols];
             for (int c = 0; c < cols; c++) {
                rowLine[c] = squares[r][c];
             }
-            rowClues.add(generateClues(rowLine));
-            if (rowClues.get(r).length == 0) {
+            clues.add(generateClues(rowLine));
+            if (clues.get(r).length == 0) {
             	int[] zero = {0};
-            	rowClues.set(r, zero);
+            	clues.set(r, zero);
             }
-		}
+        }
+
+        return clues;
     	
     }
     
-    // Sets board's describing column clues based on what's in the board.
-    public void updateColClues() {
+    // Gets board's describing column clues based on what's in the board.
+    public ArrayList<int[]> getColClues() {
     	
+        ArrayList<int[]> clues = new ArrayList<int[]>();
+
     	for (int c = 0; c < cols; c++) {
             boolean[] colLine = new boolean[rows];
             for (int r = 0; r < rows; r++) {
                colLine[r] = squares[r][c];
             }
-            colClues.add(generateClues(colLine));
-            if (colClues.get(c).length == 0) {
+            clues.add(generateClues(colLine));
+            if (clues.get(c).length == 0) {
             	int[] zero = {0};
-            	colClues.set(c, zero);
+            	clues.set(c, zero);
             }
-		}
-    	
+        }
+
+        return clues;
     }
     
     // Checks if this board's describing row clues are the same as
     // a set of given row clues.
     public boolean checkRowsSolution(ArrayList<int[]> newRowClues) {
-    	updateRowClues();
     	if (newRowClues.size() != rowClues.size()) {
     		return false;
     	}
@@ -160,7 +152,6 @@ public class Board {
     // Checks if this board's describing col clues are the same as
     // a set of given column clues.
     public boolean checkColsSolution(ArrayList<int[]> newColClues) {
-    	updateColClues();
     	if (newColClues.size() != colClues.size()) {
     		return false;
     	}
@@ -177,6 +168,15 @@ public class Board {
 			}
     	}
     	return true;
+    }
+
+    public boolean solved() {
+        ArrayList<int[]> cc = getColClues();
+        if (!checkColsSolution(cc)) {
+            return false;
+        }
+        ArrayList<int[]> rc = getRowClues();
+        return checkRowsSolution(rc);
     }
     
     
