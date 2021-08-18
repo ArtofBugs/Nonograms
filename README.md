@@ -64,7 +64,7 @@ unfilled squares).
 
 ***************
 
-You could also test other .non files from mikix's repository by running
+If you wanted, you could also solve .non puzzles from mikix's repository by running
 
 `cd ..`
 
@@ -80,8 +80,9 @@ replacing "name" with the name of the puzzle and "folder" with the name of
 the folder the puzzle is in (currently, this will be gnonograms, qnonograms, or
 webpbn). mikix also has puzzle generators that you can use.
 
-If you'd like to make your own puzzle, create a .non file and follow the format
-provided in the FORMAT.md file in mikix's nonogram-db repository.
+If you'd like to make your own puzzle, create a text file with the .non file 
+ending and follow the format provided in the FORMAT.md file in mikix's
+nonogram-db repository.
 
 ***************
 
