@@ -98,10 +98,6 @@ public class Board {
                rowLine[c] = squares[r][c];
             }
             clues.add(generateClues(rowLine));
-            if (clues.get(r).length == 0) {
-            	int[] zero = {0};
-            	clues.set(r, zero);
-            }
         }
 
         return clues;
@@ -119,10 +115,6 @@ public class Board {
                colLine[r] = squares[r][c];
             }
             clues.add(generateClues(colLine));
-            if (clues.get(c).length == 0) {
-            	int[] zero = {0};
-            	clues.set(c, zero);
-            }
         }
 
         return clues;
