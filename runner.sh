@@ -5,7 +5,7 @@
 PROGS="Backtracking RCBacktracking"
 
 case "$1" in
-    -a) PROGS="BruteForce $PROGS" ;;
+    -a) PROGS="BruteForce $PROGS" ; shift ;;
 esac
 
 for prog in $PROGS
