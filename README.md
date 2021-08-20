@@ -27,8 +27,8 @@ You may have to install make; use
 
 `sudo apt install make`
 
-Now you can pick a solver and a puzzle. As an example, if I wanted to solve the
-included heart.non puzzle using brute force, I'd type
+Now you can pick a puzzle. As an example, if I wanted to solve the
+included heart.non puzzle using all three solvers, I'd type
 
 `sh runner.sh -a heart.non`
 
@@ -42,10 +42,8 @@ conclusion.
 
 ***************
 
-If you wanted to test the other two solvers or other puzzles in my repository,
-use the same sh command listed above, but replace "heart.non" with the path
-of the puzzle file and remove the `-a` option. Currently, the available solvers are brute force, backtracking, and row-column switching backtracking (called "RCBacktracking"). To run backtracking and RCBacktracking together only, leave
-out the `-a`.
+If you wanted to test other puzzles in my repository, use the same sh command listed above, but replace "heart.non" with the path of the puzzle file. If you
+don't want the brute force solver to attempt to solve, remove the `-a` option. Currently, the available solvers are brute force, backtracking, and row-column switching backtracking (called "RCBacktracking").
 
 ***************
 
@@ -86,6 +84,13 @@ webpbn). mikix also has puzzle generators that you can use.
 If you'd like to make your own puzzle, create a text file with the .non file 
 ending and follow the format provided in the FORMAT.md file in mikix's
 nonogram-db repository.
+
+My repository also has a generator for all-black squares; run
+
+`sh genblack.sh n > nons/newfile`
+
+replacing `n` with the side length and `newfile` with what you want to call your
+new file. The file will be created as a .non file in the nons folder.
 
 ***************
 
