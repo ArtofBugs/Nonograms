@@ -27,13 +27,15 @@ You may have to install make; use
 
 `sudo apt install make`
 
-You may also need to install javac and jre; use
-
-`sudo apt install openjdk-8-jdk`
+You may also need to install jre; use
 
 `sudo apt install default-jre`
 
-(as of August 2021).
+Depending on your computer, you might need to run
+
+`sudo apt install openjdk-8-jdk`
+
+(as of August 2021) to install openjdk.
 
 Now you can pick a puzzle. As an example, if I wanted to solve the
 included heart.non puzzle using all three solvers, I'd type
