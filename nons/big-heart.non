@@ -1,0 +1,30 @@
+title "big heart"
+by "ArtofBugs"
+license "GPL-3.0 License (see repo at https://github.com/ArtofBugs/Nonograms for full license)"
+width 6
+height 5
+
+columns
+2
+4
+4
+4
+4
+2
+
+rows
+1,1
+6
+6
+4
+2
+
+goal "01001011111111111101111000110"
+
+. * . . * .
+* * * * * *
+* * * * * *
+. * * * * .
+. . * * . .
+
+
