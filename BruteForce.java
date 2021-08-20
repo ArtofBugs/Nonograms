@@ -1,6 +1,6 @@
 /*
-Uses brute force to generate all possible solutions to a given nonogram.
-Author: ArtofBugs | Date: Summer 2021
+    Uses brute force to generate all possible solutions to a given nonogram.
+    ArtofBugs in collaboration with Bart Massey | August 2021
 */
 
 import java.io.File;
@@ -30,7 +30,7 @@ public class BruteForce {
 
 		// Base case
 		if (currRow >= currBoard.rows) {
-                    return currBoard.solved();
+            return currBoard.solved();
 		}
 
 		// Adjust the row and column indices to move to the
@@ -44,8 +44,8 @@ public class BruteForce {
 
 		currBoard.set(currRow, currCol, WHITE);
 		if (recurse(currBoard, nextRow, nextCol)) {
-                    return true;
-                }
+            return true;
+        }
 		currBoard.set(currRow, currCol, BLACK);
 		return recurse(currBoard, nextRow, nextCol);
 	}

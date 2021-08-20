@@ -1,7 +1,7 @@
 /*
-Uses an algorithm similar to Backtracking.java but checks against column clues
-after trying each square as it generates row possibilities.
-Author: ArtofBugs | Date: Summer 2021
+    Uses an algorithm similar to Backtracking.java but checks against column
+    clues after trying each square as it generates row possibilities.
+    ArtofBugs | August 2021
 */
 import java.io.File;
 import java.util.Arrays;

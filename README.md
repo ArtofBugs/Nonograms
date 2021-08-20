@@ -30,7 +30,7 @@ You may have to install make; use
 Now you can pick a puzzle. As an example, if I wanted to solve the
 included heart.non puzzle using all three solvers, I'd type
 
-`sh runner.sh -a heart.non`
+`sh runner.sh -a nons/heart.non`
 
 It may take some time for the solver to finish, but it should eventually print,
 to standard output (your command line) the amount of time it took to solve the

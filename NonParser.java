@@ -1,3 +1,9 @@
+/*
+    Parser for .non file format (more info in FORMAT.md from mikix's repo at
+    https://github.com/mikix/nonogram-db).
+    ArtofBugs | August 2021
+*/
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;

@@ -2,6 +2,7 @@
    Finds "goal" key in given .non file; prints representation of puzzle solution
    to standard error. Asterisks (*) represent filled squares; periods (.)
    represent unfilled squares.
+   ArtofBugs | August 2021
 */
 
 import java.io.File;

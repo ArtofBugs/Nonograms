@@ -1,3 +1,8 @@
+/*
+    Timer that prints time between start and stop to standard output.
+    ArtofBugs | August 2021
+*/
+
 public class Timer {
 	
 	long startTime;	
