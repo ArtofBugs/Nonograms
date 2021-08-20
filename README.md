@@ -27,7 +27,9 @@ You may have to install make; use
 
 `sudo apt install make`
 
-You may also need to install java; use
+You may also need to install javac and jre; use
+
+`sudo apt install openjdk-8-jdk`
 
 `sudo apt install default-jre`
 
