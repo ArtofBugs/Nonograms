@@ -1,6 +1,6 @@
 /*
 Class for Board objects, which have squares, rows, columns, and clues.
-ArtofBugs | August 2021
+ArtofBugs in collaboration with Bart Massey | August 2021
 */
 
 import java.util.ArrayList;
