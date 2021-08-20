@@ -27,6 +27,12 @@ You may have to install make; use
 
 `sudo apt install make`
 
+You may also need to install java; use
+
+`sudo apt install default-jre`
+
+(as of August 2021).
+
 Now you can pick a puzzle. As an example, if I wanted to solve the
 included heart.non puzzle using all three solvers, I'd type
 
