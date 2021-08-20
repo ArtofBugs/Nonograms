@@ -21,12 +21,16 @@ Then navigate to the new Nonograms folder using
 
 Then type
 
-`chmod +x runner.sh`
+`make`
+
+You may have to install make; use
+
+`sudo apt install make`
 
 Now you can pick a solver and a puzzle. As an example, if I wanted to solve the
 included heart.non puzzle using brute force, I'd type
 
-`bash runner.sh BruteForce heart.non`
+`sh runner.sh -a heart.non`
 
 It may take some time for the solver to finish, but it should eventually print,
 to standard output (your command line) the amount of time it took to solve the
@@ -38,11 +42,10 @@ conclusion.
 
 ***************
 
-If you wanted to test other solvers or other puzzles in my repository, use
-the same bash command listed above but replace "BruteForce" with the name of the
-solver you want (don't include ".java") and replace "heart.non" with the path
-of the puzzle file. Currently, the available solvers are brute force,
-backtracking, and row-column switching backtracking (called "RCBacktracking").
+If you wanted to test the other two solvers or other puzzles in my repository,
+use the same sh command listed above, but replace "heart.non" with the path
+of the puzzle file and remove the `-a` option. Currently, the available solvers are brute force, backtracking, and row-column switching backtracking (called "RCBacktracking"). To run backtracking and RCBacktracking together only, leave
+out the `-a`.
 
 ***************
 
@@ -74,7 +77,7 @@ If you wanted, you could also solve .non puzzles from mikix's repository by runn
 
 Then run
 
-`bash runner.sh solver ../nonogram-db/db/folder/name`
+`sh runner.sh [option] ../nonogram-db/db/folder/name`
 
 replacing "name" with the name of the puzzle and "folder" with the name of
 the folder the puzzle is in (currently, this will be gnonograms, qnonograms, or
